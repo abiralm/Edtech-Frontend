@@ -2,8 +2,9 @@ import { Badge } from "@/components/ui/badge"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 
 import { FaStar } from "react-icons/fa";
-import { FaUserGroup } from "react-icons/fa6";
+import { FaUserGroup,FaCheck  } from "react-icons/fa6";
 import { Coursecard } from "@/app/component/layout/courseCard";
+import { CourseContent } from "@/app/component/layout/courseContent";
 
 export default function Details() {
   return (
@@ -60,29 +61,47 @@ export default function Details() {
 
             </div>
         </div>
+        
 
-        <div className='p-8 m-2 col-span-2 bg-[#FFFFFF] rounded-xl '>
-          <div>
-            <h2 className="text-3xl font-bold my-6">What You'll Learn</h2>
-          </div>
+        {/* left */}
+        <div className='m-2 col-span-2 rounded-xl'>
+          {/* <div className="border-2 border-amber-500 "> */}
+
+            <div className="col-span-2 p-8 m-2 bg-[#FFFFFF] rounded-xl border-2">
+              <h2 className="text-3xl font-bold my-6">What You'll Learn</h2>
+              <div className="grid grid-cols-2 gap-2">
+                <div><FaCheck/></div>
+                <div><FaCheck/></div>
+                <div><FaCheck/></div>
+                <div><FaCheck/></div> 
+              </div>
+            </div>
+
+
+            {/* margin needs adjustment here */}
+            <div className='m-2 my-8 col-span-2 bg-[#FFFFFF] rounded-xl'>
+              <CourseContent/>
+            </div>
+            
+            <div className='p-8 m-2 col-span-2 bg-[#FFFFFF] rounded-xl border-2 border-amber-800'>
+              <div>
+                <h2 className="text-3xl font-bold my-6 ">Requirements</h2>
+              </div>
+              <ul>
+                <li>1</li>
+                <li>2</li>
+                <li>3</li>
+              </ul>
+            </div>
+
+          {/* </div> */}
         </div>
 
-        <div className=' p-2 m-2 flex '> 
-          {/* justify-end */}
+        <div className="p-2 m-2 flex justify-end items-start"> 
           <Coursecard/>
         </div>
 
-        <div className='border-2 border-red-500 p-2 m-2 col-span-2'>4</div>
-        <div className='p-8 m-2 col-span-2 bg-[#FFFFFF] rounded-xl '>
-          <div>
-            <h2 className="text-3xl font-bold my-6">Requirements</h2>
-          </div>
-          <ul>
-            <li>1</li>
-            <li>2</li>
-            <li>3</li>
-          </ul>
-        </div>
+      
     </div>
   )
 }
