@@ -1,5 +1,6 @@
-import * as React from "react"
+"use client"
 
+import * as React from "react"
 import { Button } from "@/components/ui/button"
 import {
   Card,
@@ -10,8 +11,11 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 
+import { useRouter } from 'next/navigation'
 
 export function Coursecard() {
+  const router = useRouter()
+  
   return (
     <Card className="w-full">
         <CardHeader className="flex items-baseline justify-between">
@@ -20,7 +24,7 @@ export function Coursecard() {
         </CardHeader>
         <CardContent>
             <div>
-                <Button variant="outline" className="w-full my-2">Enroll</Button>
+                <Button variant="outline" className="w-full my-2" onClick={() => router.push(`/checkout`)}>Enroll</Button>
                 <Button className="w-full my-2">Add to wishlist</Button>
             </div>
         </CardContent>

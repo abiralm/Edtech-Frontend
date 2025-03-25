@@ -4,9 +4,6 @@ import * as React from "react"
 import { IoIosArrowDown,IoIosArrowUp  } from "react-icons/io";
 import { FaPlayCircle,FaFilePdf} from "react-icons/fa";
 import { MdQuiz } from "react-icons/md";
-
-
-
 import { Button } from "@/components/ui/button"
 import {
   Collapsible,
@@ -14,9 +11,13 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/collapsible"
 
+import { useRouter } from 'next/navigation'
+
 export function CourseContent() {
-  const x:string = "a";  
-  const [isOpen, setIsOpen] = React.useState(false)
+    
+    const router = useRouter()
+    const x:string = "a";
+    const [isOpen, setIsOpen] = React.useState(false)
 
   return (
     <Collapsible
@@ -46,7 +47,7 @@ export function CourseContent() {
             <div>
 
                 <div className="flex items-center justify-between gap-4 p-2 rounded-md">
-                    <div className="flex items-center p-2 gap-x-4">
+                    <div className="flex items-center p-2 gap-x-4" onClick={() => router.push(`/details/[id]/[contents]`)}>
                         {x === "a" ? <FaPlayCircle /> : x === "b" ? <FaFilePdf /> : x === "c" ? <MdQuiz /> : null}
                     <h4 className="text-sm font-semibold">
                             1.1 Introduction to Web Development
@@ -58,7 +59,8 @@ export function CourseContent() {
                 </div>
 
                 <div className="flex items-center justify-between gap-4 p-2 rounded-md">
-                    <div className="flex items-center p-2 gap-x-4">
+                    <div className="flex items-center p-2 gap-x-4" onClick={() => router.push(`/courses`)}
+                    >
                         {x === "a" ? <FaPlayCircle /> : x === "b" ? <FaFilePdf /> : x === "c" ? <MdQuiz /> : null}
                     <h4 className="text-sm font-semibold">
                             1.2 Introduction to Web Development

@@ -10,16 +10,6 @@ import {
 } from "@/components/ui/card"
 
 import {
-    Pagination,
-    PaginationContent,
-    PaginationEllipsis,
-    PaginationItem,
-    PaginationLink,
-    PaginationNext,
-    PaginationPrevious,
-} from "@/components/ui/pagination"
-
-import {
     Select,
     SelectContent,
     SelectItem,
@@ -36,6 +26,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
 import Sidebar from "../component/layout/side";
 import { useRouter } from 'next/navigation'
+import { PageNav } from "../component/layout/pageNav"
 
 
 export default function Courses() {
@@ -125,22 +116,7 @@ const router = useRouter()
 
                 {/* pagination */}
                 <div>
-                    <Pagination>
-                        <PaginationContent>
-                            <PaginationItem>
-                                <PaginationPrevious href="#" />
-                            </PaginationItem>
-                            <PaginationItem >
-                                <PaginationLink href="#1">1</PaginationLink>
-                            </PaginationItem>
-                            <PaginationItem>
-                                <PaginationEllipsis />
-                            </PaginationItem>
-                            <PaginationItem>
-                                <PaginationNext href="#2" />
-                            </PaginationItem>
-                        </PaginationContent>
-                    </Pagination>   
+                    <PageNav/>  
                 </div>
 
             </div>

@@ -6,7 +6,9 @@ import { FaUserGroup,FaCheck  } from "react-icons/fa6";
 import { Coursecard } from "@/app/component/layout/courseCard";
 import { CourseContent } from "@/app/component/layout/courseContent";
 
+
 export default function Details() {
+
   return (
     <div className='border-2 grid grid-cols-3 gap-y-2 gap-x- p-8 bg-[#F9FAFB] '>
       
@@ -65,15 +67,14 @@ export default function Details() {
 
         {/* left */}
         <div className='m-2 col-span-2 rounded-xl'>
-          {/* <div className="border-2 border-amber-500 "> */}
 
+            {/* course features */}
             <div className="col-span-2 p-8 m-2 bg-[#FFFFFF] rounded-xl border-2">
               <h2 className="text-3xl font-bold my-6">What You'll Learn</h2>
               <div className="grid grid-cols-2 gap-2">
-                <div><FaCheck/></div>
-                <div><FaCheck/></div>
-                <div><FaCheck/></div>
-                <div><FaCheck/></div> 
+                <div className="flex items-center gap-x-2">
+                  <FaCheck/>
+                </div>
               </div>
             </div>
 
@@ -83,7 +84,8 @@ export default function Details() {
               <CourseContent/>
             </div>
             
-            <div className='p-8 m-2 col-span-2 bg-[#FFFFFF] rounded-xl border-2 border-amber-800'>
+            {/* requirements */}
+            <div className='p-8 m-2 col-span-2 bg-[#FFFFFF] rounded-xl'>
               <div>
                 <h2 className="text-3xl font-bold my-6 ">Requirements</h2>
               </div>
@@ -101,7 +103,6 @@ export default function Details() {
           <Coursecard/>
         </div>
 
-      
     </div>
   )
 }

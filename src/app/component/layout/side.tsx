@@ -6,6 +6,7 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card"
+
 const Side = () => {
   return (
     <div className='col-span-1'>
