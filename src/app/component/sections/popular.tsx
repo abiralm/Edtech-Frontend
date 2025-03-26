@@ -6,6 +6,7 @@ import {
     CardHeader,
     CardTitle,
   } from "@/components/ui/card"
+import { PopularCard } from "../layout/popularCard"
 export const Popular = () => {
   return (
     <div className="p-12 bg-[#F9FAFB] ">
@@ -14,7 +15,10 @@ export const Popular = () => {
             <p className="text-xl">Start your journey with our top-rated courses</p>
         </div>
     
-        <div className="flex">
+        <div className="flex justify-around m-8 gap-8">
+          <PopularCard/>
+          <PopularCard/>
+          <PopularCard/>
         </div>    
     
     </div>

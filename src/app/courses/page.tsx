@@ -24,7 +24,9 @@ import { Button } from "@/components/ui/button"
 import { FaStar } from "react-icons/fa";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
-import Sidebar from "../component/layout/side";
+
+import Side from "../component/layout/side";
+
 import { useRouter } from 'next/navigation'
 import { PageNav } from "../component/layout/pageNav"
 
@@ -39,7 +41,7 @@ const router = useRouter()
         <div className="grid grid-cols-4 gap-4 m-4 p-2">
             
             {/* filter section */}
-            <Sidebar/>
+            <Side/>
 
             {/* card section */}
             <div className='col-span-3 border-2'>

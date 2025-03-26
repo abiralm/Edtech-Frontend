@@ -1,4 +1,3 @@
-import React from 'react'
 import {
     Pagination,
     PaginationContent,
@@ -7,27 +6,34 @@ import {
     PaginationLink,
     PaginationNext,
     PaginationPrevious,
-} from "@/components/ui/pagination"
+} from "@/components/ui/pagination";
 
 export const PageNav = () => {
-  return (
-    <div>
-        <Pagination>
-            <PaginationContent>
+    return (
+        <Pagination className="flex justify-center py-4">
+            <PaginationContent className="flex items-center space-x-2 px-4 py-2">
                 <PaginationItem>
-                    <PaginationPrevious href="#" />
-                </PaginationItem>
-                <PaginationItem >
-                    <PaginationLink href="#1">1</PaginationLink>
-                </PaginationItem>
-                <PaginationItem>
-                    <PaginationEllipsis />
+                    <PaginationPrevious 
+                        href="#" 
+                        className="px-3 py-1 text-gray-700 bg-gray-200 rounded-md hover:bg-gray-300 transition" 
+                    />
                 </PaginationItem>
                 <PaginationItem>
-                    <PaginationNext href="#2" />
+                    <PaginationLink 
+                        href="#" 
+                        className="px-3 py-1 text-blue-600 bg-blue-100 rounded-md hover:bg-blue-200 transition"
+                    >1</PaginationLink>
+                </PaginationItem>
+                <PaginationItem>
+                    <PaginationEllipsis className="text-gray-500" />
+                </PaginationItem>
+                <PaginationItem>
+                    <PaginationNext 
+                        href="#" 
+                        className="px-3 py-1 text-gray-700 bg-gray-200 rounded-md hover:bg-gray-300 transition" 
+                    />
                 </PaginationItem>
             </PaginationContent>
-        </Pagination> 
-    </div>
-  )
-}
+        </Pagination>
+    );
+};
