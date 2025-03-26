@@ -1,3 +1,5 @@
+"use client"
+
 import {
     Card,
     CardContent,
@@ -7,26 +9,56 @@ import {
     CardTitle,
 } from "@/components/ui/card"
 
-import { FaGraduationCap } from "react-icons/fa6";
 import Link from 'next/link'
+import { FaChalkboardTeacher } from "react-icons/fa";
+import { PiStudentFill } from "react-icons/pi";
+import { IoIosArrowForward } from "react-icons/io";
+
+import { useRouter } from 'next/navigation'
+
+
 
 const Login = () => {
-  return (
-    <div className="flex items-center  justify-center m-8">
+    const router = useRouter()
+    return (
+    <div className="flex items-center  justify-center mx-6 my-12">
         <Card className='w-3/10'>
             <CardHeader className='flex flex-col items-center'>
-                <FaGraduationCap className='text-5xl'/>
-                <CardTitle className='text-3xl font-bold'>Welcome Back</CardTitle>
-                <CardDescription>Please enter your details to sign in</CardDescription>
+                <CardTitle className='text-3xl font-bold'>Choose your role</CardTitle>
+                <CardDescription>Select how you want to join our platform</CardDescription>
             </CardHeader>
-            <CardContent>
 
-
+            <CardContent onClick={() => router.push(`/login/instructor`)}>
+                <div className="flex items-center gap-6 border-2 p-4 rounded-xl">
+                    <div className=" bg-amber-300 rounded-md">
+                        <FaChalkboardTeacher className="text-4xl m-3"/>
+                    </div>
+                    <div className="flex flex-col gap-2 ">
+                        <h1 className="text-lg font-bold">Sign up as Instructor</h1>
+                        <h4 className="text-sm">Create and manage courses, teach students</h4>
+                    </div>
+                    <IoIosArrowForward className="text-4xl"/> 
+                </div>
             </CardContent>
+
+            <CardContent onClick={() => router.push(`/login/student`)}>
+                <div className="flex items-center justify-between gap-6 border-2 p-4 rounded-xl">
+                    <div className=" bg-amber-300 rounded-md">
+                        <PiStudentFill className="text-4xl m-3"/>
+                    </div>
+
+                    <div className="flex flex-col gap-2 ">
+                        <h1 className="text-lg font-bold">Sign up as Student</h1>
+                        <h4 className="text-sm text-wrap">Learn from expert instructors, access courses</h4>
+                    </div>
+
+                    <IoIosArrowForward className="text-4xl"/>
+                    
+                </div>
+            </CardContent>
+
             <CardFooter className='flex flex-col items-center text-sm'>
-                <p className="hover:underline hover:underline-offset-4 m-1"><Link href="/roles">Don't have an account?</Link></p>
-                <p className="text-[#2563EB] hover:underline hover:underline-offset-4 m-1"><Link href="/instructor">Sign up as an instructor</Link></p>
-                <p className="text-[#2563EB] hover:underline hover:underline-offset-4 m-1"><Link href="/courses">Enroll in a course</Link></p>
+                <p className="text-[#2563EB] hover:underline hover:underline-offset-4 m-1"><Link href="/signin">Back to Login</Link></p>
             </CardFooter>
         </Card>
     </div>

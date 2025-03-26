@@ -55,7 +55,7 @@ const SignIn = () => {
     }
 
     return (
-    <div className="flex items-center  justify-center m-8">
+    <div className="flex items-center  justify-center m-6">
         <Card className='w-3/10'>
             <CardHeader className='flex flex-col items-center'>
                 <FaGraduationCap className='text-5xl'/>
