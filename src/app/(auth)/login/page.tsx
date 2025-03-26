@@ -23,13 +23,13 @@ const Login = () => {
     return (
     <div className="flex items-center  justify-center mx-6 my-12">
         <Card className='w-3/10'>
-            <CardHeader className='flex flex-col items-center'>
+            <CardHeader className='flex flex-col items-center '>
                 <CardTitle className='text-3xl font-bold'>Choose your role</CardTitle>
                 <CardDescription>Select how you want to join our platform</CardDescription>
             </CardHeader>
 
-            <CardContent onClick={() => router.push(`/login/instructor`)}>
-                <div className="flex items-center gap-6 border-2 p-4 rounded-xl">
+            <CardContent onClick={() => router.push(`/login/instructor`)} >
+                <div className="flex items-center gap-6 border-2 p-4 rounded-xl hover:bg-[#EEF4FF]">
                     <div className=" bg-amber-300 rounded-md">
                         <FaChalkboardTeacher className="text-4xl m-3"/>
                     </div>
@@ -41,8 +41,8 @@ const Login = () => {
                 </div>
             </CardContent>
 
-            <CardContent onClick={() => router.push(`/login/student`)}>
-                <div className="flex items-center justify-between gap-6 border-2 p-4 rounded-xl">
+            <CardContent onClick={() => router.push(`/login/student`)} >
+                <div className="flex items-center justify-between gap-6 border-2 p-4 rounded-xl hover:bg-[#EEF4FF]">
                     <div className=" bg-amber-300 rounded-md">
                         <PiStudentFill className="text-4xl m-3"/>
                     </div>

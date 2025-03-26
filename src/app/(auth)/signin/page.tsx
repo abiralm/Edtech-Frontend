@@ -112,7 +112,7 @@ const SignIn = () => {
             </CardContent>
             <CardFooter className='flex flex-col items-center text-sm'>
                 <p className="hover:underline hover:underline-offset-4 m-1"><Link href="/login">Don't have an account?</Link></p>
-                <p className="text-[#2563EB] hover:underline hover:underline-offset-4 m-1"><Link href="/instructor">Sign up as an instructor</Link></p>
+                <p className="text-[#2563EB] hover:underline hover:underline-offset-4 m-1"><Link href="/login/instructor">Sign up as an instructor</Link></p>
                 <p className="text-[#2563EB] hover:underline hover:underline-offset-4 m-1"><Link href="/courses">Enroll in a course</Link></p>
             </CardFooter>
         </Card>
