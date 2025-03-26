@@ -46,7 +46,7 @@ const formSchema = z.object({
       }),
   })
 
-const Instructor = () => {
+const Student = () => {
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),
         defaultValues: {
@@ -67,8 +67,8 @@ const Instructor = () => {
         <Card className='w-3/10'>
             <CardHeader className='flex flex-col items-center'>
                 <FaGraduationCap className='text-5xl'/>
-                <CardTitle className='text-3xl font-bold'>Instructor Sign Up</CardTitle>
-                <CardDescription>Complete your profile to start teaching</CardDescription>
+                <CardTitle className='text-3xl font-bold'>Student Sign Up</CardTitle>
+                <CardDescription>Complete your profile to start learning</CardDescription>
             </CardHeader>
             <CardContent>
 
@@ -83,7 +83,7 @@ const Instructor = () => {
                                     <FormLabel>Full Name</FormLabel>
                                     <FormControl>
                                     <div className="relative">
-                                        <Input type="text" placeholder="Enter your fullname" {...field} />
+                                        <Input type="text" placeholder="Enter your full name" {...field} />
                                     </div>
                                     </FormControl>
                                     <FormMessage />
@@ -155,31 +155,6 @@ const Instructor = () => {
                             )}
                         />
 
-                        <FormField
-                            
-                            control={form.control}
-                            name="role"
-                            render={({ field }) => (
-                                <FormItem >
-                                    <FormLabel>Area of expertise</FormLabel>
-                                    <Select onValueChange={field.onChange} defaultValue={field.value} className="w-full">
-                                        <FormControl>
-                                            <SelectTrigger className="w-full">
-                                                <SelectValue placeholder="Select your expertise" />
-                                            </SelectTrigger>
-                                        </FormControl>
-                                        <SelectContent className="w-full">
-
-                                            <SelectItem value="student">Student</SelectItem>
-                                            <SelectItem value="instructor">Instructor</SelectItem>
-                                            <SelectItem value="admin">Admin</SelectItem>
-                                        </SelectContent>
-                                    </Select>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
-
                         <div className="text-sm">
                             I agree to the
                             <Link href="/terms" className="text-[#2563EB] hover:underline hover:underline-offset-4 m-1">Terms and Conditons</Link>
@@ -198,6 +173,6 @@ const Instructor = () => {
     )
 };
 
-export default Instructor;
+export default Student;
 
 
