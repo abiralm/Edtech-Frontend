@@ -41,7 +41,9 @@ const router = useRouter()
         <div className="grid grid-cols-4 gap-4 m-4 p-2">
             
             {/* filter section */}
-            <Side/>
+            <div className="col-span-1 border-2">
+                <Side/>
+            </div>
 
             {/* card section */}
             <div className='col-span-3 border-2'>

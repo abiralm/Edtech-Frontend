@@ -31,165 +31,202 @@ import {
     SelectItem,
     SelectTrigger,
     SelectValue,
-  } from "@/components/ui/select"
+} from "@/components/ui/select"
 
 import { Input } from "@/components/ui/input"
-import { MdMailOutline } from "react-icons/md";
-import { FaLock } from "react-icons/fa";
+import { CreateNewCourseSchema } from "@/schema"
 
-const formSchema = z.object({
-    fullname: z.string().min(2, {
-      message: "Username must be at least 2 characters.",
-    }),
-    email: z.string().min(2, {
-        message: "Password must be at least 2 characters.",
-      }),
-  })
+// const formSchema = z.object({
+//     fullname: z.string().min(2, {
+//         message: "Username must be at least 2 characters.",
+//     }),
+//     email: z.string().min(2, {
+//         message: "Password must be at least 2 characters.",
+//     }),
+//     description: z.string().optional(),
+//     header: z.any().optional(),
+//     role: z.string().optional(),
+//     courseLevel: z.string().optional(),
+// })
 
-const Basic = () => {
-    const form = useForm<z.infer<typeof formSchema>>({
-        resolver: zodResolver(formSchema),
+// type FormValues = z.infer<typeof formSchema>;
+
+interface BasicProps {
+    handleBack: () => void;
+    handleForward:()=> void; // You may want to specify this type more precisely
+    step: number;
+}
+
+const Basic = ({ handleBack, handleForward, step }: BasicProps) => {
+    const form = useForm({
+        resolver: zodResolver(CreateNewCourseSchema),
         defaultValues: {
-        fullname: "",
-        email:""
+            title: "",
+            category: "",
+            level:"",
+            image_url:"",
+            description:""
         },
     })
     
-    // 2. Define a submit handler.
-    function onSubmit(values: z.infer<typeof formSchema>) {
-        // Do something with the form values.
-        // ✅ This will be type-safe and validated.
-        console.log(values)
+    // Use the passed onSubmit function
+    // function handleFormSubmit(values: FormValues) {
+    //     console.log(values)
+    //     onSubmit(values)
+    // }
+
+    const onSubmit = async(data: z.infer<typeof CreateNewCourseSchema>)=>{
+        console.log("is it submitted ?", data)
+        handleForward()
     }
 
     return (
-    <div className="flex items-center  justify-center m-6">
-        <Card className='w-3/5'>
-            <CardHeader className='flex flex-col items-center'>
-                <CardTitle className='text-3xl font-bold'>Create new Course</CardTitle>
-                <CardDescription>Complete your profile to start teaching</CardDescription>
-            </CardHeader>
-            <CardContent>
+        <div className="flex items-center justify-center m-6">
+            <Card className='w-3/5'>
+            
+                <CardHeader className='flex flex-col items-center'>
+                    <CardTitle className='text-3xl font-bold'>Create new Course</CardTitle>
+                    <CardDescription>Complete your profile to start teaching</CardDescription>
+                </CardHeader>
 
-                <Form {...form}>
-                    <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                <CardContent>
+                    <Form {...form}>
+                        <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
 
-                        <FormField
-                            control={form.control}
-                            name="fullname"
-                            render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Course Title</FormLabel>
-                                    <FormControl>
-                                    <div className="relative">
-                                        <Input type="text" placeholder="Enterthe course title" {...field} />
-                                    </div>
-                                    </FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
-                        
-                        {/* select fields */}
-                        <div className="flex gap-4">
+                            {/* titel field */}
                             <FormField
                                 control={form.control}
-                                name="role"
+                                name="title"
                                 render={({ field }) => (
-                                    <FormItem className="flex-1">
-                                        <FormLabel>Category</FormLabel>
-                                        <Select onValueChange={field.onChange} defaultValue={field.value} className="w-full">
-                                            <FormControl>
-                                                <SelectTrigger className="w-full">
-                                                    <SelectValue placeholder="Select category" />
-                                                </SelectTrigger>
-                                            </FormControl>
-                                            <SelectContent className="w-full">
+                                    <FormItem>
+                                        <FormLabel>Course Title</FormLabel>
+                                        <FormControl>
+                                            <div className="relative">
+                                                <Input type="text" placeholder="Enter the course title" {...field} />
+                                            </div>
+                                        </FormControl>
+                                        <FormMessage />
+                                    </FormItem>
+                                )}
+                            />
+                            
+                            {/* select fields */}
+                            <div className="flex gap-4">
+                                <FormField
+                                    control={form.control}
+                                    name="category"
+                                    render={({ field }) => (
+                                        <FormItem className="flex-1">
+                                            <FormLabel>Category</FormLabel>
+                                            <Select onValueChange={field.onChange} defaultValue={field.value} className="w-full">
+                                                <FormControl>
+                                                    <SelectTrigger className="w-full">
+                                                        <SelectValue placeholder="Select category" />
+                                                    </SelectTrigger>
+                                                </FormControl>
+                                                <SelectContent className="w-full">
+                                                    <SelectItem value="student">Student</SelectItem>
+                                                    <SelectItem value="instructor">Instructor</SelectItem>
+                                                    <SelectItem value="admin">Admin</SelectItem>
+                                                </SelectContent>
+                                            </Select>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
+                                />
 
-                                                <SelectItem value="student">Student</SelectItem>
-                                                <SelectItem value="instructor">Instructor</SelectItem>
-                                                <SelectItem value="admin">Admin</SelectItem>
-                                            </SelectContent>
-                                        </Select>
+                                <FormField
+                                    control={form.control}
+                                    name="level"
+                                    render={({ field }) => (
+                                        <FormItem className="flex-1">
+                                            <FormLabel>Course Level</FormLabel>
+                                            <Select onValueChange={field.onChange} defaultValue={field.value} className="w-full">
+                                                <FormControl>
+                                                    <SelectTrigger className="w-full">
+                                                        <SelectValue placeholder="Select level" />
+                                                    </SelectTrigger>
+                                                </FormControl>
+                                                <SelectContent className="w-full">
+                                                    <SelectItem value="beginner">Beginner</SelectItem>
+                                                    <SelectItem value="intermediate">Intermediate</SelectItem>
+                                                    <SelectItem value="advanced">Advanced</SelectItem>
+                                                </SelectContent>
+                                            </Select>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
+                                />
+                            </div>
+
+                            {/* description field */}
+                            <FormField
+                                control={form.control}
+                                name="description"
+                                render={({ field }) => (
+                                    <FormItem>
+                                        <FormLabel>Course Description</FormLabel>
+                                        <FormControl>
+                                            <Textarea
+                                                placeholder="Enter course description"
+                                                className="resize-none"
+                                                {...field}
+                                            />
+                                        </FormControl>
                                         <FormMessage />
                                     </FormItem>
                                 )}
                             />
 
+                            {/* image field */}
                             <FormField
                                 control={form.control}
-                                name="role"
+                                name="image_url"
                                 render={({ field }) => (
-                                    <FormItem className="flex-1">
-                                        <FormLabel>Course Level</FormLabel>
-                                        <Select onValueChange={field.onChange} defaultValue={field.value} className="w-full">
-                                            <FormControl>
-                                                <SelectTrigger className="w-full">
-                                                    <SelectValue placeholder="Select level" />
-                                                </SelectTrigger>
-                                            </FormControl>
-                                            <SelectContent className="w-full">
-
-                                                <SelectItem value="student">Student</SelectItem>
-                                                <SelectItem value="instructor">Instructor</SelectItem>
-                                                <SelectItem value="admin">Admin</SelectItem>
-                                            </SelectContent>
-                                        </Select>
+                                    <FormItem>
+                                        <FormLabel>Course Image</FormLabel>
+                                        <FormControl>
+                                            <div className="relative">
+                                                <Input 
+                                                    type="file" 
+                                                    placeholder="" 
+                                                    // onChange={(e) => {
+                                                    //     field.onChange(e.target.files ? e.target.files[0] : null)
+                                                    // }}
+                                                    {...field}
+                                                />
+                                            </div>
+                                        </FormControl>
                                         <FormMessage />
                                     </FormItem>
                                 )}
                             />
-                        </div>
-                        
 
-                        <FormField
-                            control={form.control}
-                            name="description"
-                            render={({ field }) => (
-                                <FormItem>
-                                <FormLabel>Course Description</FormLabel>
-                                <FormControl>
-                                    <Textarea
-                                    placeholder="Enter course description"
-                                    className="resize-none"
-                                    {...field}
-                                    />
-                                </FormControl>
-                                <FormMessage />
-                                </FormItem>
-                            )}
-                        />
+                            {/* buttons */}
+                            <div className='flex justify-between items-center text-sm'>
+                                <Button 
+                                    type="button" 
+                                    className="rounded-sm bg-[#909090] hover:bg-[#7a7a7a]"
+                                    onClick={handleBack}
+                                    disabled={step === 0}
+                                >
+                                    Cancel 
+                                </Button>
+                                <Button 
+                                    type="submit" 
+                                    className="rounded-sm bg-[#2563EB] hover:bg-[#1d4ed8]"
 
-                        <FormField
-                            control={form.control}
-                            name="header"
-                            render={({ field }) => (
-                                <FormItem>
-                                    <FormLabel>Header Image</FormLabel>
-                                    <FormControl>
-                                    <div className="relative">
-                                        <Input type="file" placeholder="" {...field} />
-                                    </div>
-                                    </FormControl>
-                                    <FormMessage />
-                                </FormItem>
-                            )}
-                        />
+                                >
+                                    {step === 1 ? 'Submit' : 'Next Step'}
+                                </Button>
+                            </div>
 
-                    </form>
-                </Form>
-
-            </CardContent>
-            <CardFooter className='flex justify-between items-center text-sm'>
-                <Button type="submit" className="rounded-sm bg-[#909090] hover">Cancel</Button>
-                <Button type="submit" className="rounded-sm bg-[#2563EB] hover">Next Step</Button>
-            </CardFooter>
-        </Card>
-    </div>
-        
+                        </form>
+                    </Form>
+                </CardContent>
+            </Card>
+        </div>
     )
 };
 
 export default Basic;
-
-
