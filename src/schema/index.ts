@@ -31,6 +31,16 @@ export const CreateCourseReviewSchema =z.object({
 })
 
 
+export const ChapterSchema = z.object({
+    description: z.string().min(10, {
+        message: "Description should be at least 10 characters long"
+    }),
+    title: z.string().min(3, {
+        message: "Title is required"
+    }),
+
+})
+
 
 
 

@@ -5,7 +5,6 @@ import { useForm } from "react-hook-form"
 import { z } from "zod"
 import { Button } from "@/components/ui/button"
 import { Textarea } from "@/components/ui/textarea"
-import Link from 'next/link'
 import {
     Card,
     CardContent,
@@ -18,7 +17,6 @@ import {
 import {
     Form,
     FormControl,
-    FormDescription,
     FormField,
     FormItem,
     FormLabel,
@@ -36,24 +34,9 @@ import {
 import { Input } from "@/components/ui/input"
 import { CreateNewCourseSchema } from "@/schema"
 
-// const formSchema = z.object({
-//     fullname: z.string().min(2, {
-//         message: "Username must be at least 2 characters.",
-//     }),
-//     email: z.string().min(2, {
-//         message: "Password must be at least 2 characters.",
-//     }),
-//     description: z.string().optional(),
-//     header: z.any().optional(),
-//     role: z.string().optional(),
-//     courseLevel: z.string().optional(),
-// })
-
-// type FormValues = z.infer<typeof formSchema>;
-
 interface BasicProps {
     handleBack: () => void;
-    handleForward:()=> void; // You may want to specify this type more precisely
+    handleForward:()=> void; 
     step: number;
 }
 
@@ -68,12 +51,6 @@ const Basic = ({ handleBack, handleForward, step }: BasicProps) => {
             description:""
         },
     })
-    
-    // Use the passed onSubmit function
-    // function handleFormSubmit(values: FormValues) {
-    //     console.log(values)
-    //     onSubmit(values)
-    // }
 
     const onSubmit = async(data: z.infer<typeof CreateNewCourseSchema>)=>{
         console.log("is it submitted ?", data)
@@ -83,7 +60,7 @@ const Basic = ({ handleBack, handleForward, step }: BasicProps) => {
     return (
         <div className="flex items-center justify-center m-6">
             <Card className='w-3/5'>
-            
+
                 <CardHeader className='flex flex-col items-center'>
                     <CardTitle className='text-3xl font-bold'>Create new Course</CardTitle>
                     <CardDescription>Complete your profile to start teaching</CardDescription>
