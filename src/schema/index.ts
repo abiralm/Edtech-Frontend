@@ -44,13 +44,22 @@ export const ChapterSchema = z.object({
 
 export const VideoSchema = z.object({
     title: z.string().min(3,{
-        message: "Description should be at least 3 characters long"
+        message: "Title should be at least 3 characters long"
     }),
     video_url: z.string().min(1, {
         message: "Please choose a video or video URL"
     })
 })
 
+
+export const PdfSchema = z.object({
+    title: z.string().min(3,{
+        message: "Title should be at least 3 characters long"
+    }),
+    pdf_file: z.string().min(1, {
+        message: "Please choose a pdf file"
+    })
+})
 
 
 

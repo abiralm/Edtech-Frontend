@@ -96,7 +96,6 @@ const CourseCreate = () => {
                     handleForward={handleForward} 
                     step={step}
                 />
-                // <ChapterInfo/>
             )}  
             
         </div>

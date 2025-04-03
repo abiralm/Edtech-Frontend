@@ -6,7 +6,6 @@ import { IoMdAdd } from "react-icons/io";
 import { ChapterCreateType } from "@/types";
 import { useState } from "react";
 import ChapterForm from "./chapterForm";
-import { VideoForm } from "./videoForm";
 
 interface BasicProps {
     handleBack: () => void;

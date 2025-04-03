@@ -10,24 +10,24 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent} from "@/components/ui/card"
-import { VideoSchema } from '@/schema'
+import { PdfSchema } from '@/schema'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z} from 'zod'
 
-interface VideoFormProps {
+interface PdfFormProps {
     // handleForward: () => void;
-    // onAddChapter: (VideoData: z.infer<typeof VideoSchema>) => void;
+    // onAddChapter: (PdfData: z.infer<typeof PdfSchema>) => void;
     showAddLessonForm:boolean;
     toggleForm :()=>void;
 }
 
-const VideoForm = ({ toggleForm }: VideoFormProps) => {
+const PdfForm = ({ toggleForm }: PdfFormProps) => {
     const form = useForm({
-        resolver: zodResolver(VideoSchema),
+        resolver: zodResolver(PdfSchema),
         defaultValues: {
             title: "",
-            video_url: ""
+            pdf_file: ""
         },
     })
 
@@ -44,7 +44,7 @@ const VideoForm = ({ toggleForm }: VideoFormProps) => {
                                 name="title"
                                 render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel>Video Title</FormLabel>
+                                        <FormLabel>Pdf Title</FormLabel>
                                         <FormControl>
                                             <div className="relative">
                                                 <Input type="text" placeholder="Enter the chapter title" {...field} />
@@ -57,10 +57,10 @@ const VideoForm = ({ toggleForm }: VideoFormProps) => {
 
                             <FormField
                                 control={form.control}
-                                name="video_url"
+                                name="pdf_file"
                                 render={({ field }) => (
                                     <FormItem>
-                                        <FormLabel>Video Link</FormLabel>
+                                        <FormLabel>Pdf Link</FormLabel>
                                         <FormControl>
                                             <div className="relative">
                                                 <Input 
@@ -83,17 +83,17 @@ const VideoForm = ({ toggleForm }: VideoFormProps) => {
                                 <Button 
                                     type="submit" 
                                     className="rounded-sm bg-[#2563EB] hover:bg-[#1d4ed8]"
-                                    onClick={toggleForm}
+                                    // onClick={toggleForm}
                                 >
-                                    Add Video Lesson 
+                                    Add Pdf Lesson 
                                 </Button>
-                                {/* <Button 
+                                <Button 
                                     type="button" 
                                     className="rounded-sm bg-[#2563EB] hover:bg-[#1d4ed8]"
                                     onClick={toggleForm}
                                 >
                                     Cancel 
-                                </Button> */}
+                                </Button>
                             </div>
                         </form>
                 </Form>
@@ -104,5 +104,5 @@ const VideoForm = ({ toggleForm }: VideoFormProps) => {
   )
 }
 
-export default VideoForm
+export default PdfForm
 

@@ -34,6 +34,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { CreateNewCourseSchema } from "@/schema"
 import VideoForm from "./videoForm"
+import PdfForm from "./pdfForm"
 
 interface BasicProps {
     handleBack: () => void;
@@ -201,7 +202,8 @@ const Basic = ({ handleBack, handleForward, step }: BasicProps) => {
 
                         </form>
                     </Form>
-                        {/* <VideoForm/> */}
+                        {/* <VideoForm/>
+                        <PdfForm/> */}
                     
                 </CardContent>
             </Card>
