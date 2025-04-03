@@ -1,50 +1,33 @@
-import { zodResolver } from "@hookform/resolvers/zod"
-import { useForm } from "react-hook-form"
-import { z } from "zod"
+// CourseBuilder.tsx
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
-
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
-
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form"
-
-import { Input } from "@/components/ui/input"
-import { ChapterSchema } from "@/schema"
-import { Textarea } from "@/components/ui/textarea"
+import ChapterInfo from "./chapterInfo"
+import { IoMdAdd } from "react-icons/io";
+import { ChapterCreateType } from "@/types";
+import { useState } from "react";
+import ChapterForm from "./chapterForm";
+import { VideoForm } from "./videoForm";
 
 interface BasicProps {
     handleBack: () => void;
-    handleForward:()=> void; 
+    handleForward: () => void; 
     step: number;
 }
 
 const CourseBuilder = ({ handleBack, handleForward, step }: BasicProps) => {
-    const form = useForm({
-        resolver: zodResolver(ChapterSchema),
-        defaultValues: {
-            title: "",
-            description:""
-        },
-    })
 
-const onSubmit = async(data: z.infer<typeof ChapterSchema>)=>{
-    console.log("is it submitted ?", data)
-    handleForward()
-}
+  const [chapters, setChapters] = useState<ChapterCreateType[]>([]);
+  const addChapter = (chapterData: ChapterCreateType) => {
+    setChapters([...chapters, chapterData])
+  }
 
+  // const [lessons,setLessons] =useState<Chapter
+
+  const [showCreateCourseForm,setshowCreateCourseForm] =useState<boolean>(true)
+
+  const toggleCreateCourseForm = ()=>{
+      setshowCreateCourseForm(!showCreateCourseForm)
+  }
 
   return (
     <div className="flex items-center justify-center m-6">
@@ -55,62 +38,19 @@ const onSubmit = async(data: z.infer<typeof ChapterSchema>)=>{
         </CardHeader>
         
         <CardContent>
-            <Form {...form}>
-                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-
-                    {/* titel field */}
-                    <FormField
-                        control={form.control}
-                        name="title"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Chapter Title</FormLabel>
-                                <FormControl>
-                                    <div className="relative">
-                                        <Input type="text" placeholder="Enter the chapter title" {...field} />
-                                    </div>
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-
-                    {/* description field */}
-                    <FormField
-                        control={form.control}
-                        name="description"
-                        render={({ field }) => (
-                            <FormItem>
-                                <FormLabel>Chapter Description</FormLabel>
-                                <FormControl>
-                                    <Textarea
-                                        placeholder="Enter chapter description"
-                                        className="resize-none"
-                                        {...field}
-                                    />
-                                </FormControl>
-                                <FormMessage />
-                            </FormItem>
-                        )}
-                    />
-
-                    {/* buttons */}
-                    <div className='flex justify-between items-center text-sm'>
-                        <Button 
-                            type="button" 
-                            className="rounded-sm bg-[#2563EB] hover:bg-[#1d4ed8]"
-                            onClick={handleBack}
-                            disabled={step === 0}
-                        >
-                            Add Chapter 
-                        </Button>
-                    </div>
-
-                </form>
-            </Form>
+            <ChapterInfo chapters={chapters} onAddChapter={addChapter}/>
+            {showCreateCourseForm?(<ChapterForm onAddChapter={addChapter} toggleForm={toggleCreateCourseForm}/>):null}
         </CardContent>
-      </Card>
 
+        <CardFooter className="justify-between">
+                <Button onClick={()=>setshowCreateCourseForm(true)}>
+                  <IoMdAdd /> 
+                  Add New Chapter
+                </Button>
+            <Button onClick={handleBack}>Previous Step</Button>
+            <Button onClick={handleForward}>Next Step</Button>
+        </CardFooter>
+      </Card>
     </div>
   )
 };

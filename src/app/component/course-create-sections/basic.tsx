@@ -33,6 +33,7 @@ import {
 
 import { Input } from "@/components/ui/input"
 import { CreateNewCourseSchema } from "@/schema"
+import VideoForm from "./videoForm"
 
 interface BasicProps {
     handleBack: () => void;
@@ -200,6 +201,8 @@ const Basic = ({ handleBack, handleForward, step }: BasicProps) => {
 
                         </form>
                     </Form>
+                        {/* <VideoForm/> */}
+                    
                 </CardContent>
             </Card>
         </div>

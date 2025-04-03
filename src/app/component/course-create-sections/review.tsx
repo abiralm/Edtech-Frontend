@@ -69,10 +69,10 @@ const Review = ({ handleBack, handleForward, step }: BasicProps) => {
                             name="description"
                             render={({ field }) => (
                                 <FormItem>
-                                <FormLabel>Course Description</FormLabel>
+                                <FormLabel>Course Requirements</FormLabel>
                                 <FormControl>
                                     <Textarea
-                                    placeholder="Enter course description"
+                                    placeholder="Enter course requirements"
                                     className="resize-none"
                                     {...field}
                                     />

@@ -1,3 +1,4 @@
+import { title } from "process";
 import * as z from "zod";
 
 export const CreateNewCourseSchema = z.object({
@@ -39,6 +40,15 @@ export const ChapterSchema = z.object({
         message: "Title is required"
     }),
 
+})
+
+export const VideoSchema = z.object({
+    title: z.string().min(3,{
+        message: "Description should be at least 3 characters long"
+    }),
+    video_url: z.string().min(1, {
+        message: "Please choose a video or video URL"
+    })
 })
 
 

@@ -12,7 +12,7 @@ import ChapterInfo from '../component/course-create-sections/chapterInfo';
 
 const CourseCreate = () => {
     const [step, setStep] = useState(0)
-    const totalSteps = 2
+    const totalSteps = 3
 
     const form = useForm()
 
@@ -80,7 +80,7 @@ const CourseCreate = () => {
                 />
             )}
         
-            {step === 1 && (
+            {step === 2 && (
                 <Review 
                     handleBack={handleBack}
                     handleForward={handleForward} 
@@ -88,8 +88,17 @@ const CourseCreate = () => {
                 />
             )}
 
-            <CourseBuilder/>
-            <ChapterInfo/>
+            
+            
+            {step === 1 && (
+                <CourseBuilder 
+                    handleBack={handleBack}
+                    handleForward={handleForward} 
+                    step={step}
+                />
+                // <ChapterInfo/>
+            )}  
+            
         </div>
     )
 }

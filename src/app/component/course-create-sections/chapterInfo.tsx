@@ -8,44 +8,49 @@ import {
 } from "@/components/ui/card"
 import CourseItems from "./courseItems"
 import AddNewContent from "./addNewContent"
-import { IoMdAdd } from "react-icons/io";
-import { MdEdit } from "react-icons/md";
-import { Button } from "@/components/ui/button";
+import ChapterTitle from "./chapterTitle";
+import { ChapterSchema } from "@/schema";
+import { z } from "zod";
+import { useState } from "react";
 
-const ChapterInfo = () => {
-  return (
-    <div className="flex items-center justify-center m-6">
-        <Card className='w-3/5'>
-            <CardHeader className='flex justify-between items-center'>
-                <div className='flex flex-col gap-2'>
-                    <CardTitle className='text-2xl font-bold'>Chapter 1 : Introduction to Web Development</CardTitle>
-                    <CardDescription>X Lessons • Y minutes total</CardDescription>
-                </div>
+interface ChapterInfoProps {
+    chapters: z.infer<typeof ChapterSchema>[];
+    onAddChapter: (chapterData: z.infer<typeof ChapterSchema>) => void;
+}
 
-                <Button>
-                    <MdEdit /> 
-                    Edit Chapter
-                </Button>
-                
-            </CardHeader>
+const ChapterInfo = ({ chapters, onAddChapter }: ChapterInfoProps) => {
+    const [showEditForm, setShowEditForm] = useState(false)
 
-            <CardContent>
-                <CourseItems/>
-                <AddNewContent/>
-            </CardContent>
-            
-            <CardFooter className="justify-between">
-                <Button>
-                    <IoMdAdd /> 
-                    Add New Chapter
-                </Button>
-                <Button>
-                    Save Changes
-                </Button>
-            </CardFooter>
-        </Card>
-    </div>
-  )
+    const toggleEdit = ()=>{
+        setShowEditForm(!showEditForm)
+    }
+
+    if (chapters.length === 0) {
+        return null;
+    }else{
+        return(<div className="flex items-center justify-center my-6">
+            <Card className="w-full">
+                <CardHeader>
+                    <ChapterTitle onAddChapter={onAddChapter} toggleForm={toggleEdit} showEditForm={showEditForm}/>  
+                </CardHeader>
+    
+                <CardContent>
+                    {/* add new content and list of content  */}
+                    <CourseItems/>
+                    <AddNewContent/>
+                </CardContent>
+    
+                <CardFooter className="justify-between">
+                    
+                    {/* <Button>
+                        Save Changes
+                    </Button> */}
+                </CardFooter>
+            </Card>
+        </div>
+      )
+    }
+    
 }
 
 export default ChapterInfo
