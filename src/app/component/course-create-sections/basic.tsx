@@ -33,8 +33,7 @@ import {
 
 import { Input } from "@/components/ui/input"
 import { CreateNewCourseSchema } from "@/schema"
-import VideoForm from "./videoForm"
-import PdfForm from "./pdfForm"
+
 
 interface BasicProps {
     handleBack: () => void;
@@ -65,7 +64,7 @@ const Basic = ({ handleBack, handleForward, step }: BasicProps) => {
 
                 <CardHeader className='flex flex-col items-center'>
                     <CardTitle className='text-3xl font-bold'>Create new Course</CardTitle>
-                    <CardDescription>Complete your profile to start teaching</CardDescription>
+                    <CardDescription>Setup the course </CardDescription>
                 </CardHeader>
 
                 <CardContent>

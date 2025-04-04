@@ -3,6 +3,8 @@ import { FaVideo,FaFilePdf} from "react-icons/fa";
 import { MdQuiz } from "react-icons/md";
 import VideoForm from "./videoForm";
 import PdfForm from "./pdfForm";
+import QuizForm from "./quizForm";
+import QuizQuestionsForm from "./quizQuestionsForm";
 
 const AddNewContent = () => {
 
@@ -26,7 +28,7 @@ const AddNewContent = () => {
       case "pdf":
         return(<PdfForm toggleForm={toggleAddLessonForm} showAddLessonForm={false}/>)
       case "quiz":
-        return(<></>)
+        return(<QuizForm toggleForm={toggleAddLessonForm} showAddLessonForm={false}/>)
     } 
   }
 
@@ -37,7 +39,7 @@ const AddNewContent = () => {
           
         <div className="grid grid-cols-3 w-full gap-2 my-4">
 
-          <div className="border-2 flex flex-col items-center p-4 rounded-xl gap-2 hover:bg-[#F9FAFB] " onClick={()=>openLessonForm("pdf")}>
+          <div className="cursor-pointer border-2 flex flex-col items-center p-4 rounded-xl gap-2 hover:bg-[#F9FAFB] " onClick={()=>openLessonForm("pdf")}>
             <FaFilePdf className="text-xl "/>
             <div className="flex flex-col items-center">
               <h2 className="font-bold">Add Pdf</h2>
@@ -45,7 +47,7 @@ const AddNewContent = () => {
             </div>  
           </div>
         
-          <div className="border-2 flex flex-col items-center p-4 rounded-xl gap-2 hover:bg-[#F9FAFB]" onClick={()=>openLessonForm("video")}>
+          <div className="cursor-pointer border-2 flex flex-col items-center p-4 rounded-xl gap-2 hover:bg-[#F9FAFB]" onClick={()=>openLessonForm("video")}>
             <FaVideo className="text-xl"/>
             <div className="flex flex-col items-center">
               <h2 className="font-bold">Add Video</h2>
@@ -53,7 +55,7 @@ const AddNewContent = () => {
             </div>
           </div>
         
-          <div className="border-2 flex flex-col items-center p-4 rounded-xl gap-2 hover:bg-[#F9FAFB]" onClick={()=>openLessonForm("quiz")}>
+          <div className="cursor-pointer border-2 flex flex-col items-center p-4 rounded-xl gap-2 hover:bg-[#F9FAFB]" onClick={()=>openLessonForm("quiz")}>
             <MdQuiz className="text-xl"/>
             <div className="flex flex-col items-center">
               <h2 className="font-bold">Add Quiz</h2>
@@ -64,40 +66,6 @@ const AddNewContent = () => {
         </div>
       </div>
     )
-  
-
-    
-    // <div className="mt-6 border-2 border-dashed p-4 rounded-2xl">
-    //   <div className="font-bold">Add New Lesson</div>
-      
-    //   <div className="grid grid-cols-3 w-full gap-2 my-4">
-
-    //     <div className="border-2 flex flex-col items-center p-4 rounded-xl gap-2 hover:bg-[#F9FAFB] " onClick={toggleAddLessonForm}>
-    //       <FaFilePdf className="text-xl "/>
-    //       <div className="flex flex-col items-center">
-    //         <h2 className="font-bold">Add Pdf</h2>
-    //         <h4>Upload pdf </h4>
-    //       </div>  
-    //     </div>
-      
-    //     <div className="border-2 flex flex-col items-center p-4 rounded-xl gap-2 hover:bg-[#F9FAFB]">
-    //       <FaVideo className="text-xl"/>
-    //       <div className="flex flex-col items-center">
-    //         <h2 className="font-bold">Add Video</h2>
-    //         <h4>Upload or embed </h4>
-    //       </div>
-    //     </div>
-      
-    //     <div className="border-2 flex flex-col items-center p-4 rounded-xl gap-2 hover:bg-[#F9FAFB]">
-    //       <MdQuiz className="text-xl"/>
-    //       <div className="flex flex-col items-center">
-    //         <h2 className="font-bold">Add Quiz</h2>
-    //         <h4 >Create Quiz</h4>
-    //       </div>
-    //     </div>
-
-    //   </div>
-    // </div>
   )
 }
 

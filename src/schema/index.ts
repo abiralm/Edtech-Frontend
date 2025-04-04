@@ -62,4 +62,19 @@ export const PdfSchema = z.object({
 })
 
 
+export const QuizSchema = z .object({
+    title: z.string().min(3,{
+        message: "Title should be at least 3 characters long"
+    }),
+    description: z.string().min(10, {
+        message:"Description should be at least 10 characters long"
+
+    }),
+    explanation: z.string().min(10, {
+        message:"Explanation should be at least 10 characters long"
+
+    })
+})
+
+
 

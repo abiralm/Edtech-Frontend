@@ -10,10 +10,11 @@ interface ChapterTitleProps {
   showEditForm: boolean,
   toggleForm: ()=>void,
   onAddChapter: (chapterData: z.infer<typeof ChapterSchema>) => void;
+  chapter:any
 }
 
 
-const ChapterTitle = ({showEditForm, toggleForm, onAddChapter}:ChapterTitleProps) => {
+const ChapterTitle = ({showEditForm, toggleForm, onAddChapter,chapter}:ChapterTitleProps) => {
 
   if(showEditForm){
     return(
@@ -24,7 +25,7 @@ const ChapterTitle = ({showEditForm, toggleForm, onAddChapter}:ChapterTitleProps
   return (
     <div className='flex justify-between items-center'>
         <div className='flex flex-col gap-2'>
-            <p className='text-2xl font-bold'>Chapter 1 : Introduction to Web Development</p>
+            <p className='text-2xl font-bold'>{chapter.title} : {chapter.description}</p>
             <p>X Lessons • Y minutes total</p>
         </div>
 

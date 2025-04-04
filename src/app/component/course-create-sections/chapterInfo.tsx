@@ -16,9 +16,11 @@ import { useState } from "react";
 interface ChapterInfoProps {
     chapters: z.infer<typeof ChapterSchema>[];
     onAddChapter: (chapterData: z.infer<typeof ChapterSchema>) => void;
+    lessons: z.infer<typeof ChapterSchema>[];
+    onAddLesson: (chapterData: z.infer<typeof ChapterSchema>) => void;
 }
 
-const ChapterInfo = ({ chapters, onAddChapter }: ChapterInfoProps) => {
+const ChapterInfo = ({ chapters, onAddChapter,lessons,onAddLesson }: ChapterInfoProps) => {
     const [showEditForm, setShowEditForm] = useState(false)
 
     const toggleEdit = ()=>{
@@ -29,14 +31,14 @@ const ChapterInfo = ({ chapters, onAddChapter }: ChapterInfoProps) => {
         return null;
     }else{
         return(<div className="flex items-center justify-center my-6">
+            
             <Card className="w-full">
                 <CardHeader>
-                    <ChapterTitle onAddChapter={onAddChapter} toggleForm={toggleEdit} showEditForm={showEditForm}/>  
+                    {chapters.map((chapter)=>(<ChapterTitle onAddChapter={onAddChapter} toggleForm={toggleEdit} showEditForm={showEditForm} chapter={chapter}/>))}
                 </CardHeader>
     
                 <CardContent>
-                    {/* add new content and list of content  */}
-                    <CourseItems/>
+                    {lessons.length > 0 ? <CourseItems /> : null}
                     <AddNewContent/>
                 </CardContent>
     

@@ -8,7 +8,6 @@ import {cn} from '@/lib/utils'
 import Basic from '../component/course-create-sections/basic';
 import Review from '../component/course-create-sections/review';
 import CourseBuilder from '../component/course-create-sections/courseBuilder';
-import ChapterInfo from '../component/course-create-sections/chapterInfo';
 
 const CourseCreate = () => {
     const [step, setStep] = useState(0)
@@ -30,7 +29,7 @@ const CourseCreate = () => {
         setStep(0)
         reset()
 
-        toast.success("Form successfully submitted")
+        // toast.success("Form successfully submitted")
         }
     }
 
@@ -72,7 +71,7 @@ const CourseCreate = () => {
             ))}
             </div>
 
-            {step === 0 && (
+            {step === 1 && (
                 <Basic 
                     handleBack={handleBack}
                     handleForward={handleForward} 
@@ -90,7 +89,7 @@ const CourseCreate = () => {
 
             
             
-            {step === 1 && (
+            {step === 0 && (
                 <CourseBuilder 
                     handleBack={handleBack}
                     handleForward={handleForward} 

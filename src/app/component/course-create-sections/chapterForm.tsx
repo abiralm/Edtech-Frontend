@@ -90,10 +90,10 @@ const ChapterForm = ({ toggleForm,onAddChapter }: ChapterFormProps) => {
                             </Button>
                             <Button 
                                 type="button" 
-                                className="rounded-sm bg-[#2563EB] hover:bg-[#1d4ed8]"
+                                className="rounded-sm bg-[#4B5563] hover:bg-[#979ea8]"
                                 onClick={toggleForm}
                             >
-                                cancel 
+                                Cancel 
                             </Button>
                         </div>
                     </form>

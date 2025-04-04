@@ -3,6 +3,8 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Button } from "@/components/ui/button"
 import ChapterInfo from "./chapterInfo"
 import { IoMdAdd } from "react-icons/io";
+import { HiArrowSmLeft,HiArrowSmRight } from "react-icons/hi";
+
 import { ChapterCreateType } from "@/types";
 import { useState } from "react";
 import ChapterForm from "./chapterForm";
@@ -16,11 +18,16 @@ interface BasicProps {
 const CourseBuilder = ({ handleBack, handleForward, step }: BasicProps) => {
 
   const [chapters, setChapters] = useState<ChapterCreateType[]>([]);
+
   const addChapter = (chapterData: ChapterCreateType) => {
     setChapters([...chapters, chapterData])
   }
 
-  // const [lessons,setLessons] =useState<Chapter
+  const [lessons,setLessons] =useState<ChapterCreateType[]>([]);
+  
+  const addLesson = (lessonData: ChapterCreateType) => {
+    setLessons([...lessons, lessonData])
+  }
 
   const [showCreateCourseForm,setshowCreateCourseForm] =useState<boolean>(true)
 
@@ -37,17 +44,20 @@ const CourseBuilder = ({ handleBack, handleForward, step }: BasicProps) => {
         </CardHeader>
         
         <CardContent>
-            <ChapterInfo chapters={chapters} onAddChapter={addChapter}/>
+            <ChapterInfo chapters={chapters} onAddChapter={addChapter} lessons={lessons} onAddLesson={addLesson}/>
             {showCreateCourseForm?(<ChapterForm onAddChapter={addChapter} toggleForm={toggleCreateCourseForm}/>):null}
         </CardContent>
 
         <CardFooter className="justify-between">
-                <Button onClick={()=>setshowCreateCourseForm(true)}>
+                <Button onClick={()=>setshowCreateCourseForm(true)} className="bg-[#2563EB]">
                   <IoMdAdd /> 
                   Add New Chapter
                 </Button>
-            <Button onClick={handleBack}>Previous Step</Button>
-            <Button onClick={handleForward}>Next Step</Button>
+            <div className="flex gap-4">
+              <Button onClick={handleBack}><HiArrowSmLeft />Previous Step</Button>
+              <Button onClick={handleForward}>Next Step<HiArrowSmRight /></Button>
+            </div>
+            
         </CardFooter>
       </Card>
     </div>

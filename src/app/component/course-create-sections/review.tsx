@@ -28,6 +28,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
 import { Input } from "@/components/ui/input"
 import { useState } from "react"
 import { CreateCourseReviewSchema } from "@/schema"
+import { HiArrowSmLeft } from "react-icons/hi"
 
 
 interface BasicProps {
@@ -133,17 +134,19 @@ const Review = ({ handleBack, handleForward, step }: BasicProps) => {
                         )}
                         />
 
-                        <Button type="button" className="rounded-sm bg-[#909090] hover" onClick={handleBack}>Previous Step</Button>
-                    <div className="flex gap-4">
-                        <Button type="submit" className="rounded-sm bg-[#2563EB] hover">Save as Draft</Button>
-                        <Button type="submit" className="rounded-sm bg-[#2563EB] hover">Save and Publish</Button>
-                    </div>
+                        {/* <Button type="button" className="rounded-sm bg-[#909090] hover" onClick={handleBack}>Previous Step</Button> */}
+                        
                     </form>
                 </Form>
                 
             </CardContent>
             <CardFooter className='flex justify-between items-center text-sm'>
+                <Button onClick={handleBack}><HiArrowSmLeft />Previous Step</Button>
                 
+                <div className="flex gap-4">
+                    <Button type="submit" className="rounded-sm bg-[#2563EB] hover">Save as Draft</Button>
+                    <Button type="submit" className="rounded-sm bg-[#2563EB] hover">Save and Publish</Button>
+                </div>
             </CardFooter>
         </Card>
     </div>
