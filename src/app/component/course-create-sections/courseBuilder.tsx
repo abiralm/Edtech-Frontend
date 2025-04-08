@@ -13,9 +13,11 @@ interface BasicProps {
     handleBack: () => void;
     handleForward: () => void; 
     step: number;
+    course_id: string;
 }
 
-const CourseBuilder = ({ handleBack, handleForward, step }: BasicProps) => {
+const CourseBuilder = ({ handleBack, handleForward, step, course_id }: BasicProps) => {
+  console.log("I GOT THE IDDDDDDD", course_id)
 
   const [chapters, setChapters] = useState<ChapterCreateType[]>([]);
 

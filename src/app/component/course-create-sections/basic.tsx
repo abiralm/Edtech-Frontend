@@ -33,15 +33,19 @@ import {
 
 import { Input } from "@/components/ui/input"
 import { CreateNewCourseSchema } from "@/schema"
+import { create_course_api } from "@/api/instructor_api"
+import { CourseReqType, CourseResType } from "@/types/instructor_types"
+import { CourseType } from "@/types"
 
 
 interface BasicProps {
     handleBack: () => void;
     handleForward:()=> void; 
     step: number;
+    addCourseInState : (courseData: CourseType) =>void;
 }
 
-const Basic = ({ handleBack, handleForward, step }: BasicProps) => {
+const Basic = ({ handleBack, handleForward, step, addCourseInState }: BasicProps) => {
     const form = useForm({
         resolver: zodResolver(CreateNewCourseSchema),
         defaultValues: {
@@ -55,7 +59,32 @@ const Basic = ({ handleBack, handleForward, step }: BasicProps) => {
 
     const onSubmit = async(data: z.infer<typeof CreateNewCourseSchema>)=>{
         console.log("is it submitted ?", data)
-        handleForward()
+        
+        try{
+            const courseData : CourseReqType = {
+                title: data.title,
+                category:data.category,
+                level:data.level,
+                description:data.description,
+                image_url:data.image_url
+            }
+            const response:CourseResType |null = await create_course_api(courseData)
+
+            if(response){
+                const courseData: CourseType = {
+                    course_id: response.course_id,
+                    title: data.title,
+                    category:data.category,
+                    level:data.level,
+                    description:data.description,
+                    image_url:data.image_url
+                }
+                addCourseInState(courseData)
+                handleForward()
+            }
+        }catch(err){
+            console.log("Error in course setup form ", err)
+        }
     }
 
     return (
@@ -96,16 +125,16 @@ const Basic = ({ handleBack, handleForward, step }: BasicProps) => {
                                     render={({ field }) => (
                                         <FormItem className="flex-1">
                                             <FormLabel>Category</FormLabel>
-                                            <Select onValueChange={field.onChange} defaultValue={field.value} className="w-full">
+                                            <Select onValueChange={field.onChange} defaultValue={field.value}>
                                                 <FormControl>
                                                     <SelectTrigger className="w-full">
                                                         <SelectValue placeholder="Select category" />
                                                     </SelectTrigger>
                                                 </FormControl>
                                                 <SelectContent className="w-full">
-                                                    <SelectItem value="student">Student</SelectItem>
-                                                    <SelectItem value="instructor">Instructor</SelectItem>
-                                                    <SelectItem value="admin">Admin</SelectItem>
+                                                    <SelectItem value="Medical">Medical</SelectItem>
+                                                    <SelectItem value="Technology">Technology</SelectItem>
+                                                    <SelectItem value="Business">Business</SelectItem>
                                                 </SelectContent>
                                             </Select>
                                             <FormMessage />
@@ -119,16 +148,16 @@ const Basic = ({ handleBack, handleForward, step }: BasicProps) => {
                                     render={({ field }) => (
                                         <FormItem className="flex-1">
                                             <FormLabel>Course Level</FormLabel>
-                                            <Select onValueChange={field.onChange} defaultValue={field.value} className="w-full">
+                                            <Select onValueChange={field.onChange} defaultValue={field.value} >
                                                 <FormControl>
                                                     <SelectTrigger className="w-full">
                                                         <SelectValue placeholder="Select level" />
                                                     </SelectTrigger>
                                                 </FormControl>
                                                 <SelectContent className="w-full">
-                                                    <SelectItem value="beginner">Beginner</SelectItem>
-                                                    <SelectItem value="intermediate">Intermediate</SelectItem>
-                                                    <SelectItem value="advanced">Advanced</SelectItem>
+                                                    <SelectItem value="Beginner">Beginner</SelectItem>
+                                                    <SelectItem value="Intermediate">Intermediate</SelectItem>
+                                                    <SelectItem value="Advanced">Advanced</SelectItem>
                                                 </SelectContent>
                                             </Select>
                                             <FormMessage />

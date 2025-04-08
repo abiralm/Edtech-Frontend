@@ -28,30 +28,37 @@ import {
 import { Input } from "@/components/ui/input"
 import { MdMailOutline } from "react-icons/md";
 import { FaLock } from "react-icons/fa";
+import { LoginSchema } from "@/schema"
+import useAuthStore from "@/stores/authStore"
+import { loginReqDataType, loginResDataType } from "@/types/auth_types"
 
-const formSchema = z.object({
-    username: z.string().min(2, {
-      message: "Username must be at least 2 characters.",
-    }),
-    password: z.string().min(2, {
-        message: "Password must be at least 2 characters.",
-      }),
-  })
+import { useRouter } from 'next/navigation'
+
 
 const SignIn = () => {
-    const form = useForm<z.infer<typeof formSchema>>({
-        resolver: zodResolver(formSchema),
+
+    const router = useRouter()
+
+    const {login} = useAuthStore()
+
+    const form = useForm<z.infer<typeof LoginSchema>>({
+        resolver: zodResolver(LoginSchema),
         defaultValues: {
-        username: "",
+        email: "",
         password:""
         },
     })
     
-    // 2. Define a submit handler.
-    function onSubmit(values: z.infer<typeof formSchema>) {
-        // Do something with the form values.
-        // ✅ This will be type-safe and validated.
-        console.log(values)
+    async function onSubmit(values: z.infer<typeof LoginSchema>) {
+        const loginData : loginReqDataType = {
+            email:values.email,
+            password:values.password
+        }
+        const loggedIn = await login(loginData)
+        //if logged in is true route to create course
+        loggedIn? router.push("/createcourse"):console.log(values)
+        
+        
     }
 
     return (
@@ -69,7 +76,7 @@ const SignIn = () => {
 
                         <FormField
                             control={form.control}
-                            name="username"
+                            name="email"
                             render={({ field }) => (
                                 <FormItem>
                                     <FormLabel>Email address</FormLabel>

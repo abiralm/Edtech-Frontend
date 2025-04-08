@@ -8,8 +8,27 @@ import {cn} from '@/lib/utils'
 import Basic from '../component/course-create-sections/basic';
 import Review from '../component/course-create-sections/review';
 import CourseBuilder from '../component/course-create-sections/courseBuilder';
+import { CourseType, mainCourseType } from '@/types';
+
+const initalMainCourseState: mainCourseType = {
+    course: {
+        course_id:"",
+        title:"",
+        category: "",
+        level: "",
+        description: "",
+        image_url :""
+    },
+    chapters:[],
+    status: 'draft' 
+}
+
 
 const CourseCreate = () => {
+
+    const [mainCourseState,setMainCourseState ] = useState<mainCourseType>(initalMainCourseState)
+
+
     const [step, setStep] = useState(0)
     const totalSteps = 3
 
@@ -20,6 +39,11 @@ const CourseCreate = () => {
         control,
         reset
     } = form
+
+    const addCourseInState = (courseData: CourseType) =>{
+        setMainCourseState({...mainCourseState, course:courseData})
+        console.log(mainCourseState)
+    }
 
     const onSubmit = async (formData: unknown) => {
         if (step < totalSteps - 1) {
@@ -76,6 +100,7 @@ const CourseCreate = () => {
                     handleBack={handleBack}
                     handleForward={handleForward} 
                     step={step}
+                    addCourseInState={addCourseInState}
                 />
             )}
         
@@ -94,6 +119,7 @@ const CourseCreate = () => {
                     handleBack={handleBack}
                     handleForward={handleForward} 
                     step={step}
+                    course_id={mainCourseState.course.course_id}
                 />
             )}  
             
