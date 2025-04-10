@@ -222,7 +222,6 @@ const Basic = ({ handleBack, handleForward, step, addCourseInState }: BasicProps
                                 <Button 
                                     type="submit" 
                                     className="rounded-sm bg-[#2563EB] hover:bg-[#1d4ed8]"
-
                                 >
                                     {step === 1 ? 'Submit' : 'Next Step'}
                                 </Button>

@@ -13,36 +13,103 @@ import {
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent} from "@/components/ui/card"
 import { ChapterSchema } from "@/schema"
+import { ChapterType } from "@/types"
+import { ChapterReqType, ChapterResType } from "@/types/instructor_types"
+import { create_chapter_api } from "@/api/instructor_api"
 
 interface ChapterFormProps {
     // handleForward: () => void;
-    onAddChapter: (chapterData: z.infer<typeof ChapterSchema>) => void;
+    chapter?: ChapterType
     toggleForm :()=>void;
+    addChapterInState: (chapterData: ChapterType) =>void
+    course_id: string
+    order:number
 }
 
-const ChapterForm = ({ toggleForm,onAddChapter }: ChapterFormProps) => {
+const ChapterForm = ({ toggleForm, addChapterInState, course_id ,order, chapter}: ChapterFormProps) => {
     const form = useForm({
         resolver: zodResolver(ChapterSchema),
         defaultValues: {
-            title: "",
-            description: ""
+            title: chapter?chapter.title:"",
+            description: chapter?chapter.description:""
         },
     })
 
     const onSubmit = async(data: z.infer<typeof ChapterSchema>) => {
-        onAddChapter(data)
-        console.log(data)
-        toggleForm()
-        // handleForward()
+        if(chapter){
+            // This will update the chapter
+            try{
+                // const chapterData: ChapterReqType ={
+                //     title:data.title,
+                //     description: data.description,
+                //     order: order
+                // }
+    
+                // // call another api endpoint
+                // const response:ChapterResType | null = await create_chapter_api(chapterData,course_id)
+    
+                // if(response){
+                    const chapterData: ChapterType ={
+                        chapter_id: chapter.chapter_id,
+                        title:data.title,
+                        description:data.description,
+                        order:order,
+                        lessons:chapter.lessons
+                    }
+    
+                    addChapterInState(chapterData)
+                    console.log(chapterData)
+                    
+                    toggleForm()
+                // }
+    
+            }catch(err){
+                console.log("Error in course setup form ", err)
+            }
+        }else{
+            // this will add the chapter
+            try{
+                const chapterData: ChapterReqType ={
+                    title:data.title,
+                    description: data.description,
+                    order: order
+                }
+    
+                const response:ChapterResType | null = await create_chapter_api(chapterData,course_id)
+    
+                if(response){
+                    const chapterData: ChapterType ={
+                        chapter_id: response.chapter_id,
+                        title:data.title,
+                        description:data.description,
+                        order:order,
+                        lessons:[]
+                    }
+    
+                    addChapterInState(chapterData)
+                    console.log(chapterData)
+                    
+                    toggleForm()
+                }
+    
+            }catch(err){
+                console.log("Error in course setup form ", err)
+            }
+        }
     }
+
+    // inside try catch we will do api call and after response only we will update chapter data
+    
+    // if there is chapter prop in this form, then lessons will be chapter.lessons
 
     return (
         <Card className="border-2">
             <CardContent>
             <Form {...form}>
                     <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                        
                         {/* title field */}
                         <FormField
                             control={form.control}
@@ -86,7 +153,7 @@ const ChapterForm = ({ toggleForm,onAddChapter }: ChapterFormProps) => {
                                 className="rounded-sm bg-[#2563EB] hover:bg-[#1d4ed8]"
                                 // onClick={toggleForm}
                             >
-                                Add Chapter 
+                                {chapter?"Edit Chapter":"Add Chapter"} 
                             </Button>
                             <Button 
                                 type="button" 

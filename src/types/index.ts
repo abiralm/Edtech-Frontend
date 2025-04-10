@@ -1,9 +1,3 @@
-export type ChapterCreateType = {
-    title: string,
-    description: string,
-    // order:number| null
-
-}
 
 export type CourseType ={
     course_id:string,

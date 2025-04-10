@@ -8,7 +8,7 @@ import {cn} from '@/lib/utils'
 import Basic from '../component/course-create-sections/basic';
 import Review from '../component/course-create-sections/review';
 import CourseBuilder from '../component/course-create-sections/courseBuilder';
-import { CourseType, mainCourseType } from '@/types';
+import { ChapterType, CourseType, mainCourseType } from '@/types';
 
 const initalMainCourseState: mainCourseType = {
     course: {
@@ -28,7 +28,6 @@ const CourseCreate = () => {
 
     const [mainCourseState,setMainCourseState ] = useState<mainCourseType>(initalMainCourseState)
 
-
     const [step, setStep] = useState(0)
     const totalSteps = 3
 
@@ -40,9 +39,30 @@ const CourseCreate = () => {
         reset
     } = form
 
+    //adding course in main course state
     const addCourseInState = (courseData: CourseType) =>{
         setMainCourseState({...mainCourseState, course:courseData})
         console.log(mainCourseState)
+    }
+
+    //Adding (or updating) chapter in our main course state
+    const addChapterInState = (chapterData: ChapterType) =>{
+        // setMainCourseState((prevState)=>({
+        //     ...prevState,
+        //     chapters: [...prevState.chapters, chapterData]
+        // }))
+        setMainCourseState((prevState)=>{
+            const chapterIndex = prevState.chapters.findIndex((chap)=>chap.chapter_id == chapterData.chapter_id)
+            
+            const UpdatedChapters = chapterIndex >= 0? 
+                prevState.chapters.map((chap, index)=>index == chapterIndex?chapterData: chap)
+                : [...prevState.chapters, chapterData]
+
+            return {
+                ...prevState,
+                chapters: UpdatedChapters
+            }
+        })
     }
 
     const onSubmit = async (formData: unknown) => {
@@ -95,7 +115,7 @@ const CourseCreate = () => {
             ))}
             </div>
 
-            {step === 1 && (
+            {step === 0 && (
                 <Basic 
                     handleBack={handleBack}
                     handleForward={handleForward} 
@@ -114,12 +134,14 @@ const CourseCreate = () => {
 
             
             
-            {step === 0 && (
-                <CourseBuilder 
+            {step === 1 && (
+                <CourseBuilder
+                    chapters={mainCourseState.chapters} 
                     handleBack={handleBack}
                     handleForward={handleForward} 
                     step={step}
                     course_id={mainCourseState.course.course_id}
+                    addChapterInState={addChapterInState}
                 />
             )}  
             

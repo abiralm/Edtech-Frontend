@@ -4,8 +4,7 @@ import { Button } from "@/components/ui/button"
 import ChapterInfo from "./chapterInfo"
 import { IoMdAdd } from "react-icons/io";
 import { HiArrowSmLeft,HiArrowSmRight } from "react-icons/hi";
-
-import { ChapterCreateType } from "@/types";
+import { ChapterType, LessonType } from "@/types";
 import { useState } from "react";
 import ChapterForm from "./chapterForm";
 
@@ -14,22 +13,11 @@ interface BasicProps {
     handleForward: () => void; 
     step: number;
     course_id: string;
+    addChapterInState: (chapterData: ChapterType) =>void
+    chapters: ChapterType[]
 }
 
-const CourseBuilder = ({ handleBack, handleForward, step, course_id }: BasicProps) => {
-  console.log("I GOT THE IDDDDDDD", course_id)
-
-  const [chapters, setChapters] = useState<ChapterCreateType[]>([]);
-
-  const addChapter = (chapterData: ChapterCreateType) => {
-    setChapters([...chapters, chapterData])
-  }
-
-  const [lessons,setLessons] =useState<ChapterCreateType[]>([]);
-  
-  const addLesson = (lessonData: ChapterCreateType) => {
-    setLessons([...lessons, lessonData])
-  }
+const CourseBuilder = ({ handleBack, handleForward, step, course_id, addChapterInState, chapters }: BasicProps) => {
 
   const [showCreateCourseForm,setshowCreateCourseForm] =useState<boolean>(true)
 
@@ -40,14 +28,15 @@ const CourseBuilder = ({ handleBack, handleForward, step, course_id }: BasicProp
   return (
     <div className="flex items-center justify-center m-6">
       <Card className='w-3/5'>
+      
         <CardHeader className='flex flex-col items-center'>
             <CardTitle className='text-3xl font-bold'>Course Builder</CardTitle>
             <CardDescription>Add lessons to your chapters</CardDescription>
         </CardHeader>
         
         <CardContent>
-            <ChapterInfo chapters={chapters} onAddChapter={addChapter} lessons={lessons} onAddLesson={addLesson}/>
-            {showCreateCourseForm?(<ChapterForm onAddChapter={addChapter} toggleForm={toggleCreateCourseForm}/>):null}
+            <ChapterInfo chapters={chapters} addChapterInState={addChapterInState} course_id={course_id}/>
+            {showCreateCourseForm?(<ChapterForm toggleForm={toggleCreateCourseForm} addChapterInState={addChapterInState} course_id={course_id} order={chapters.length}/>):null}
         </CardContent>
 
         <CardFooter className="justify-between">

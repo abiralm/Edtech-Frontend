@@ -1,24 +1,29 @@
 import { Button } from '@/components/ui/button'
-import { CardDescription, CardTitle } from '@/components/ui/card'
-import React from 'react'
-import { MdEdit } from 'react-icons/md'
+import React, { useState } from 'react'
+import { MdEdit,MdDelete} from 'react-icons/md'
 import { ChapterSchema } from '@/schema'
 import { z } from 'zod'
 import ChapterForm from './chapterForm'
+import { ChapterType } from '@/types'
 
 interface ChapterTitleProps {
-  showEditForm: boolean,
-  toggleForm: ()=>void,
-  onAddChapter: (chapterData: z.infer<typeof ChapterSchema>) => void;
-  chapter:any
+  addChapterInState: (chapterData: ChapterType) =>void
+  chapter:ChapterType
+  course_id: string
 }
 
 
-const ChapterTitle = ({showEditForm, toggleForm, onAddChapter,chapter}:ChapterTitleProps) => {
+const ChapterTitle = ({ addChapterInState,chapter, course_id}:ChapterTitleProps) => {
+
+  const [showEditForm, setShowEditForm] = useState(false)
+
+  const toggleEdit = ()=>{
+      setShowEditForm(!showEditForm)
+  }
 
   if(showEditForm){
     return(
-      <ChapterForm onAddChapter={onAddChapter} toggleForm={toggleForm}/>
+      <ChapterForm chapter={chapter} addChapterInState={addChapterInState} toggleForm={toggleEdit} course_id={course_id} order={chapter.order}/>
     )
   }
 
@@ -29,10 +34,17 @@ const ChapterTitle = ({showEditForm, toggleForm, onAddChapter,chapter}:ChapterTi
             <p>X Lessons • Y minutes total</p>
         </div>
 
-        <Button onClick={toggleForm}>
-            <MdEdit /> 
-            Edit Chapter
-        </Button>
+        <div className='flex gap-2'>
+          <Button onClick={toggleEdit}>
+              <MdEdit /> 
+              Edit 
+          </Button>
+          <Button onClick={()=>{console.log("delete button clicked")}}>
+              <MdDelete /> 
+              Delete 
+          </Button>
+        </div>
+        
     </div>
   )
 }
