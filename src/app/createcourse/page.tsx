@@ -8,7 +8,7 @@ import {cn} from '@/lib/utils'
 import Basic from '../component/course-create-sections/basic';
 import Review from '../component/course-create-sections/review';
 import CourseBuilder from '../component/course-create-sections/courseBuilder';
-import { ChapterType, CourseType, mainCourseType } from '@/types';
+import { ChapterType, CourseType, LessonType, mainCourseType } from '@/types';
 
 const initalMainCourseState: mainCourseType = {
     course: {
@@ -61,6 +61,24 @@ const CourseCreate = () => {
             return {
                 ...prevState,
                 chapters: UpdatedChapters
+            }
+        })
+    }
+
+    //add edit functionality
+    const addLessonToChapters =(lessonData :LessonType,chapter_id:string)=>{
+        setMainCourseState((prevState)=>{
+            const updatedChapters = prevState.chapters.map((chapter)=>{
+                if (chapter.chapter_id == chapter_id){
+                    return {
+                        ...chapter,
+                        lessons:[...chapter.lessons,lessonData]
+                    }
+                }
+                return chapter
+            })
+            return{
+                ...prevState,chapters:updatedChapters
             }
         })
     }
@@ -142,6 +160,8 @@ const CourseCreate = () => {
                     step={step}
                     course_id={mainCourseState.course.course_id}
                     addChapterInState={addChapterInState}
+                    addLessonToChapters={addLessonToChapters}
+                    // lessons={mainCourseState.chapters.}
                 />
             )}  
             

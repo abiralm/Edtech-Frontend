@@ -6,7 +6,6 @@ import { create } from "zustand";
 interface AuthStore {
     token: string | null;
     login: (loginData: loginReqDataType) => Promise<boolean>; //login and stores values in zustand store
-   
 }
 
 const useAuthStore = create<AuthStore>((set)=>({

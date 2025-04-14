@@ -16,12 +16,12 @@ import { ChapterType, LessonType } from "@/types";
 interface ChapterInfoProps {
     chapters: ChapterType[];
     addChapterInState: (chapterData: ChapterType) =>void
-    lessons?: LessonType[];
     onAddLesson?: (lessonData:LessonType) => void;
     course_id: string
+    addLessonToChapters: (lessonData :LessonType,chapter_id:string)=>void
 }
 
-const ChapterInfo = ({ chapters, addChapterInState,lessons,onAddLesson, course_id }: ChapterInfoProps) => {
+const ChapterInfo = ({ chapters, addChapterInState,onAddLesson, course_id, addLessonToChapters }: ChapterInfoProps) => {
 
 
     if (chapters.length === 0) {
@@ -37,8 +37,8 @@ const ChapterInfo = ({ chapters, addChapterInState,lessons,onAddLesson, course_i
     
                 <CardContent>
                     {chapter.lessons.length != 0 ? <CourseItems lessons={chapter.lessons}/> : null}
-                    {/* <CourseItems lessons={lessons}/> */}
-                    <AddNewContent/>
+                    {/* <CourseItems lessons={chapter.lessons}/> */}
+                    <AddNewContent addLessonToChapters={addLessonToChapters} chapter_id={chapter.chapter_id} course_id={course_id} order={chapter.lessons?.length}/>
                 </CardContent>
     
                 <CardFooter className="justify-between">

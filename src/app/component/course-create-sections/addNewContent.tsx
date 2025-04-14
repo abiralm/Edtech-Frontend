@@ -5,8 +5,15 @@ import VideoForm from "./videoForm";
 import PdfForm from "./pdfForm";
 import QuizForm from "./quizForm";
 import QuizQuestionsForm from "./quizQuestionsForm";
+import { LessonType } from "@/types";
 
-const AddNewContent = () => {
+interface AddNewContentProps {
+  addLessonToChapters: (lessonData :LessonType,chapter_id:string)=>void
+  chapter_id: string
+  course_id: string
+  order: number
+}
+const AddNewContent = ({addLessonToChapters, chapter_id, course_id,order}: AddNewContentProps) => {
 
   const [showAddLessonForm,setshowAddLessonForm] =useState<boolean>(false);
   const [lessonType, setLessonType] = useState("");
@@ -24,9 +31,9 @@ const AddNewContent = () => {
   if (showAddLessonForm){
     switch (lessonType) {
       case "video":
-        return(<VideoForm toggleForm={toggleAddLessonForm} showAddLessonForm={false}/>)
+        return(<VideoForm  toggleForm={toggleAddLessonForm} showAddLessonForm={false} addLessonToChapters ={addLessonToChapters} chapter_id={chapter_id} course_id={course_id} order={order}/>)
       case "pdf":
-        return(<PdfForm toggleForm={toggleAddLessonForm} showAddLessonForm={false}/>)
+        return(<PdfForm toggleForm={toggleAddLessonForm} showAddLessonForm={false} addLessonToChapters={addLessonToChapters} chapter_id={chapter_id} course_id={course_id} order={order}/>)
       case "quiz":
         return(<QuizForm toggleForm={toggleAddLessonForm} showAddLessonForm={false}/>)
     } 

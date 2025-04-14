@@ -14,15 +14,22 @@ import { VideoSchema } from '@/schema'
 import { useForm } from 'react-hook-form'
 import { zodResolver } from "@hookform/resolvers/zod"
 import { z} from 'zod'
+import { LessonType, VideoType } from '@/types'
+import { LessonReqType, LessonResType } from '@/types/instructor_types'
+import { create_lesson_api } from '@/api/instructor_api'
 
 interface VideoFormProps {
     // handleForward: () => void;
     // onAddChapter: (VideoData: z.infer<typeof VideoSchema>) => void;
     showAddLessonForm:boolean;
     toggleForm :()=>void;
+    addLessonToChapters:(lessonData: LessonType,chapter_id:string)=>void
+    chapter_id:string
+    course_id:string
+    order:number
 }
 
-const VideoForm = ({ toggleForm }: VideoFormProps) => {
+const VideoForm = ({ toggleForm,addLessonToChapters,chapter_id,course_id,order }: VideoFormProps) => {
     const form = useForm({
         resolver: zodResolver(VideoSchema),
         defaultValues: {
@@ -31,13 +38,43 @@ const VideoForm = ({ toggleForm }: VideoFormProps) => {
         },
     })
 
+    const onSubmit =async(data:z.infer<typeof VideoSchema>)=>{
+        try{
+            const videoData:VideoType={
+                title:data.title,
+                content_url:data.video_url
+            }
+
+            const lessonData:LessonReqType={
+                type:"video",
+                order:order,
+                video:videoData
+            }
+
+        const response:LessonResType|null = await create_lesson_api(lessonData,course_id,chapter_id)
+
+        if( response){
+            const lessonData:LessonType={
+                lesson_id:response.lesson_id,
+                order:order,
+                type:"video",
+                video:videoData
+            }
+            addLessonToChapters(lessonData,chapter_id)
+            toggleForm()
+        }
+
+        }catch(err){
+            console.log(err)
+        }
+    }
 
   return (
     <div className="my-6">
         <Card className="border-2">
             <CardContent>
                 <Form {...form}>
-                        <form onSubmit={()=>console.log("Hi")}className="space-y-6">
+                        <form onSubmit={form.handleSubmit(onSubmit)}className="space-y-6">
                             {/* title field */}
                             <FormField
                                 control={form.control}
@@ -66,9 +103,6 @@ const VideoForm = ({ toggleForm }: VideoFormProps) => {
                                                 <Input 
                                                     type="file" 
                                                     placeholder="" 
-                                                    // onChange={(e) => {
-                                                    //     field.onChange(e.target.files ? e.target.files[0] : null)
-                                                    // }}
                                                     {...field}
                                                 />
                                             </div>
@@ -83,17 +117,17 @@ const VideoForm = ({ toggleForm }: VideoFormProps) => {
                                 <Button 
                                     type="submit" 
                                     className="rounded-sm bg-[#2563EB] hover:bg-[#1d4ed8]"
-                                    onClick={toggleForm}
+                                    // onClick={toggleForm}
                                 >
                                     Add Video Lesson 
                                 </Button>
-                                {/* <Button 
+                                <Button 
                                     type="button" 
                                     className="rounded-sm bg-[#2563EB] hover:bg-[#1d4ed8]"
                                     onClick={toggleForm}
                                 >
                                     Cancel 
-                                </Button> */}
+                                </Button>
                             </div>
                         </form>
                 </Form>

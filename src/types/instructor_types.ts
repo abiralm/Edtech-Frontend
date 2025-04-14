@@ -1,3 +1,5 @@
+import { PDFType, VideoType } from "."
+
 export type CourseReqType = {
     title: string,
     category: string,
@@ -16,11 +18,24 @@ export type CourseResType = {
 export type ChapterReqType = {
     title:string,
     description:string,
-    order:number | undefined
+    order?:number | undefined
 
 }
 
 export type ChapterResType = {
     chapter_id: string,
     message: string
+}
+
+
+export type LessonReqType = {
+    type:string,
+    order?:number | undefined
+    pdf?:PDFType | undefined
+    video?:VideoType | undefined
+}
+
+export type LessonResType={
+    lesson_id:string,
+    message:string
 }

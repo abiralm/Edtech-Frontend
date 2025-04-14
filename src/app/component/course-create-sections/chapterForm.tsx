@@ -17,7 +17,7 @@ import { Card, CardContent} from "@/components/ui/card"
 import { ChapterSchema } from "@/schema"
 import { ChapterType } from "@/types"
 import { ChapterReqType, ChapterResType } from "@/types/instructor_types"
-import { create_chapter_api } from "@/api/instructor_api"
+import { create_chapter_api, edit_chapter_api } from "@/api/instructor_api"
 
 interface ChapterFormProps {
     // handleForward: () => void;
@@ -41,16 +41,16 @@ const ChapterForm = ({ toggleForm, addChapterInState, course_id ,order, chapter}
         if(chapter){
             // This will update the chapter
             try{
-                // const chapterData: ChapterReqType ={
-                //     title:data.title,
-                //     description: data.description,
-                //     order: order
-                // }
+                const chapterData: ChapterReqType ={
+                    title:data.title,
+                    description: data.description
+                }
     
                 // // call another api endpoint
                 // const response:ChapterResType | null = await create_chapter_api(chapterData,course_id)
-    
-                // if(response){
+                const response:ChapterResType |null = await edit_chapter_api(chapterData,course_id,chapter.chapter_id)
+
+                if(response){
                     const chapterData: ChapterType ={
                         chapter_id: chapter.chapter_id,
                         title:data.title,
@@ -58,12 +58,13 @@ const ChapterForm = ({ toggleForm, addChapterInState, course_id ,order, chapter}
                         order:order,
                         lessons:chapter.lessons
                     }
+
     
                     addChapterInState(chapterData)
                     console.log(chapterData)
                     
                     toggleForm()
-                // }
+                }
     
             }catch(err){
                 console.log("Error in course setup form ", err)
