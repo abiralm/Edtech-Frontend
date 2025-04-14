@@ -9,11 +9,11 @@ export default function Home() {
   return (
     <div>
       <Hero/>
-      <Features/>
+      {/* <Features/>
       <Popular/>
       <Testimonials/>
       <Pricing/>
-      <CtaSection/>
+      <CtaSection/> */}
     </div>
   );
 }
