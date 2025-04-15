@@ -65,6 +65,19 @@ const CourseCreate = () => {
         })
     }
 
+
+    const deleteChapterFromState =(chapterData:ChapterType)=>{
+        setMainCourseState((prevState)=>{
+            const filtered = prevState.chapters.filter(
+                (chapter)=>chapter.chapter_id !== chapterData.chapter_id
+            )
+            return{
+                ...prevState,
+                chapters:filtered
+            }
+        })
+    }
+
     //add edit functionality
     const addLessonToChapters =(lessonData :LessonType,chapter_id:string)=>{
         setMainCourseState((prevState)=>{
@@ -160,6 +173,7 @@ const CourseCreate = () => {
                     step={step}
                     course_id={mainCourseState.course.course_id}
                     addChapterInState={addChapterInState}
+                    deleteChapterFromState={deleteChapterFromState}
                     addLessonToChapters={addLessonToChapters}
                     // lessons={mainCourseState.chapters.}
                 />

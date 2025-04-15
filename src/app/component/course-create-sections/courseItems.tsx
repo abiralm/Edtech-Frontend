@@ -1,11 +1,12 @@
 import { SlOptionsVertical } from "react-icons/sl";
 import { FaVideo,FaFilePdf} from "react-icons/fa";
-import { MdQuiz } from "react-icons/md";
+import { MdEdit, MdQuiz } from "react-icons/md";
 import { LessonType } from "@/types";
 
 
 interface CourseItemsProps {
   lessons:LessonType[];
+
 }
 
 
@@ -35,10 +36,13 @@ const CourseItems = ({lessons}:CourseItemsProps) => {
           </div>
           <div className="flex gap-2 items-center">
             1:00
-            <SlOptionsVertical 
+            <MdEdit className="text-md cursor-pointer" 
+              // onClick={toggleForm()}
+            />
+            {/* <SlOptionsVertical 
               className="text-md cursor-pointer" 
               onClick={() => console.log("Options clicked for lesson:", lesson.lesson_id)}
-            />
+            /> */}
           </div>
         </div>
       ))}

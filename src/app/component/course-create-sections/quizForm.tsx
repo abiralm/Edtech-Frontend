@@ -24,7 +24,6 @@ interface QuizFormProps {
     toggleForm :()=>void;
 }
 
- 
 
 const QuizForm = ({ toggleForm }: QuizFormProps) => {
 

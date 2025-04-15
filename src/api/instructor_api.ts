@@ -43,6 +43,19 @@ export const edit_chapter_api = async (data:ChapterReqType, course_id: string,ch
 }
 
 
+export const delete_chapter_api = async ( course_id: string,chapter_id:string) =>{
+    try{
+        const response = await axiosInstance.delete(`/courses/${course_id}/chapters/${chapter_id}`)
+        if(response.status==200){
+            return true
+        }
+        return false
+    }catch(err){
+        console.log(err)
+        return false
+    }
+}
+
 export const create_lesson_api = async (data:LessonReqType,course_id:string,chapter_id:string): Promise<LessonResType |null> => {
     try{
         const response =await axiosInstance.post(`/courses/${course_id}/chapters/${chapter_id}/lessons`,data)

@@ -5,20 +5,33 @@ import { ChapterSchema } from '@/schema'
 import { z } from 'zod'
 import ChapterForm from './chapterForm'
 import { ChapterType } from '@/types'
+import { delete_chapter_api } from '@/api/instructor_api'
 
 interface ChapterTitleProps {
   addChapterInState: (chapterData: ChapterType) =>void
+  deleteChapterFromState: (chapterData: ChapterType) =>void
   chapter:ChapterType
   course_id: string
 }
 
 
-const ChapterTitle = ({ addChapterInState,chapter, course_id}:ChapterTitleProps) => {
+const ChapterTitle = ({ addChapterInState, deleteChapterFromState,chapter, course_id}:ChapterTitleProps) => {
 
   const [showEditForm, setShowEditForm] = useState(false)
 
   const toggleEdit = ()=>{
       setShowEditForm(!showEditForm)
+  }
+
+  const handleChapterDeletion = async () =>{
+    try{
+      const response = await delete_chapter_api(course_id, chapter.chapter_id)
+      if(response){
+        deleteChapterFromState(chapter)
+      }
+    }catch(error){
+      console.log("Something bad occured when deleting chapter: ", error)
+    }
   }
 
   if(showEditForm){
@@ -39,8 +52,8 @@ const ChapterTitle = ({ addChapterInState,chapter, course_id}:ChapterTitleProps)
               <MdEdit /> 
               Edit 
           </Button>
-          <Button onClick={()=>{console.log("delete button clicked")}}>
-              <MdDelete /> 
+          <Button onClick={handleChapterDeletion}>
+          <MdDelete /> 
               Delete 
           </Button>
         </div>
