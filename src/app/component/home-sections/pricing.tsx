@@ -15,8 +15,8 @@ export const Pricing = () => {
   return (
     <div className="p-12 bg-[#F9FAFB]">
         <div className="flex flex-col items-center gap-y-4">
-            <p className="text-4xl font-bold">Pricing</p>
-            <p className="text-xl">Flexible plans for every learning journey</p>
+        <p className="text-2xl text-center sm:text-4xl font-bold">Pricing</p>
+            <p className="text-base sm:text-xl text-center">Flexible plans for every learning journey</p>
         </div>
     
         <div className="p-10 flex gap-x-8 justify-around">

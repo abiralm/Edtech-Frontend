@@ -12,8 +12,8 @@ export default function Home() {
       <Features/>
       <Popular/>
       <Testimonials/>
-      {/* <Pricing/>
-      <CtaSection/> */}
+      {/* <Pricing/> */}
+      <CtaSection/>
     </div>
   );
 }
