@@ -19,7 +19,7 @@ export const Features = () => {
             <p className="text-base sm:text-xl text-center">Innovative features designed to enhance your learning experience</p>
         </div>
 
-        <div className="m-8 lg:my-10 lg:mx-16 flex flex-col lg:flex-row justify-between gap-y-4 lg:gap-x-4">
+        <div className="m-8 lg:my-10 lg:mx-16 flex flex-col lg:flex-row justify-between gap-y-2 lg:gap-x-4">
 
             <Card className="lg:w-1/3 shadow-[0px_10px_15px_0px_rgba(0,0,0,0.1)] md:shadow-[0px_4px_6px_0px_rgba(0,0,0,0.1)] m-4 px-4 gap-y-2 lg:gap-y-4">
                 <CardHeader>
