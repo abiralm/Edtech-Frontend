@@ -15,12 +15,13 @@ export const Features = () => {
   return (
     <div className="p-4">
         <div className="flex flex-col items-center my-8 gap-y-4">
-            <p className="text-4xl font-bold">Why Choose EdutechPro?</p>
-            <p className="text-xl">Innovative features designed to enhance your learning experience</p>
+            <p className="text-2xl text-center sm:text-4xl font-bold">Why Choose EdutechPro?</p>
+            <p className="text-base sm:text-xl text-center">Innovative features designed to enhance your learning experience</p>
         </div>
-        <div className="my-10 mx-16 flex justify-between gap-x-8">
 
-            <Card className="w-1/3 shadow-[0px_10px_15px_0px_rgba(0,0,0,0.1)] md:shadow-[0px_4px_6px_0px_rgba(0,0,0,0.1)] m-4 px-4">
+        <div className="m-8 lg:my-10 lg:mx-16  flex-row lg:flex lg:justify-between gap-x-8">
+
+            <Card className="lg:w-1/3 shadow-[0px_10px_15px_0px_rgba(0,0,0,0.1)] md:shadow-[0px_4px_6px_0px_rgba(0,0,0,0.1)] m-4 px-4">
                 <CardHeader>
                 <FaBrain className="text-5xl rounded-3xl p-2 bg-[#DBEAFE]" />
                 </CardHeader>
@@ -32,7 +33,7 @@ export const Features = () => {
                 </CardFooter>
             </Card>
 
-            <Card className="w-1/3 shadow-[0px_10px_15px_0px_rgba(0,0,0,0.1)] md:shadow-[0px_4px_6px_0px_rgba(0,0,0,0.1)] m-4  px-4">
+            <Card className="lg:w-1/3 shadow-[0px_10px_15px_0px_rgba(0,0,0,0.1)] md:shadow-[0px_4px_6px_0px_rgba(0,0,0,0.1)] m-4  px-4">
                 <CardHeader>
                 <FaVideo className="text-5xl rounded-3xl p-2 bg-[#DBEAFE]" />
                 </CardHeader>
@@ -44,7 +45,7 @@ export const Features = () => {
                 </CardFooter>
             </Card>
 
-            <Card className="w-1/3 shadow-[0px_10px_15px_0px_rgba(0,0,0,0.1)] md:shadow-[0px_4px_6px_0px_rgba(0,0,0,0.1)] m-4  px-4">
+            <Card className="lg:w-1/3 shadow-[0px_10px_15px_0px_rgba(0,0,0,0.1)] md:shadow-[0px_4px_6px_0px_rgba(0,0,0,0.1)] m-4  px-4">
                 <CardHeader>
                 <TiStarburst className="text-5xl rounded-3xl p-2 bg-[#DBEAFE]" />
                 </CardHeader>
