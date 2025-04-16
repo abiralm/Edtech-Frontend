@@ -9,14 +9,14 @@ import { useState } from "react";
 import ChapterForm from "./chapterForm";
 
 interface BasicProps {
-    handleBack: () => void;
-    handleForward: () => void; 
-    step: number;
-    course_id: string;
-    addChapterInState: (chapterData: ChapterType) =>void
-    deleteChapterFromState: (chapterData: ChapterType) =>void
-    chapters: ChapterType[]
-    addLessonToChapters: (lessonData :LessonType,chapter_id:string)=>void
+  handleBack: () => void;
+  handleForward: () => void; 
+  step: number;
+  course_id: string;
+  addChapterInState: (chapterData: ChapterType) =>void
+  deleteChapterFromState: (chapterData: ChapterType) =>void
+  chapters: ChapterType[]
+  addLessonToChapters: (lessonData :LessonType,chapter_id:string)=>void
 }
 
 const CourseBuilder = ({ handleBack, handleForward, step, course_id, addChapterInState,deleteChapterFromState, chapters, addLessonToChapters}: BasicProps) => {

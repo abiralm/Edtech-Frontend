@@ -12,6 +12,7 @@ import { ChapterSchema } from "@/schema";
 import { z } from "zod";
 import { useState } from "react";
 import { ChapterType, LessonType } from "@/types";
+import LessonList from "./lessonList";
 
 interface ChapterInfoProps {
     chapters: ChapterType[];
@@ -42,7 +43,11 @@ const ChapterInfo = ({ chapters, addChapterInState,onAddLesson,deleteChapterFrom
                 </CardHeader>
     
                 <CardContent>
-                    {chapter.lessons.length != 0 ? <CourseItems lessons={chapter.lessons}/> : null}
+                    {chapter.lessons.length != 0 ? <div className="space-y-2">
+                        {chapter.lessons.map((lesson) => (
+                            <LessonList key={lesson.lesson_id} lesson={lesson} addLessonToChapters={addLessonToChapters} chapter_id={chapter.chapter_id} course_id={course_id}/>
+                        ))}
+                        </div> : null}
                     <AddNewContent addLessonToChapters={addLessonToChapters} chapter_id={chapter.chapter_id} course_id={course_id} order={chapter.lessons?.length}/>
                 </CardContent>
     

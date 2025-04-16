@@ -16,11 +16,10 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { z} from 'zod'
 import { LessonType, VideoType } from '@/types'
 import { LessonReqType, LessonResType } from '@/types/instructor_types'
-import { create_lesson_api } from '@/api/instructor_api'
+import { create_lesson_api, edit_lesson_api } from '@/api/instructor_api'
 
 interface VideoFormProps {
-    // handleForward: () => void;
-    // onAddChapter: (VideoData: z.infer<typeof VideoSchema>) => void;
+    lesson?:LessonType,
     showAddLessonForm:boolean;
     toggleForm :()=>void;
     addLessonToChapters:(lessonData: LessonType,chapter_id:string)=>void
@@ -29,44 +28,79 @@ interface VideoFormProps {
     order:number
 }
 
-const VideoForm = ({ toggleForm,addLessonToChapters,chapter_id,course_id,order }: VideoFormProps) => {
+const VideoForm = ({ toggleForm,addLessonToChapters,chapter_id,course_id,lesson,order }: VideoFormProps) => {
     const form = useForm({
         resolver: zodResolver(VideoSchema),
         defaultValues: {
-            title: "",
+            title:(lesson?.video)?lesson.video.title:"",
             video_url: ""
         },
     })
 
     const onSubmit =async(data:z.infer<typeof VideoSchema>)=>{
-        try{
-            const videoData:VideoType={
-                title:data.title,
-                content_url:data.video_url
-            }
 
-            const lessonData:LessonReqType={
-                type:"video",
-                order:order,
-                video:videoData
-            }
+        if(lesson){
+            try{
+                const videoData : VideoType={
+                    title:data.title,
+                    content_url:data.video_url
+                }
 
-        const response:LessonResType|null = await create_lesson_api(lessonData,course_id,chapter_id)
+                const lessonData: LessonReqType={
+                    type:"video",
+                    video:videoData
+                }
 
-        if( response){
-            const lessonData:LessonType={
-                lesson_id:response.lesson_id,
-                order:order,
-                type:"video",
-                video:videoData
+                const response:LessonResType|null =await edit_lesson_api(
+                    lessonData,course_id,chapter_id,lesson.lesson_id
+                )
+
+                if (response){
+                    const lessonData:LessonType={
+                        lesson_id:response.lesson_id,
+                        order:order,
+                        type: "video",
+                        video:videoData
+                    }
+    
+                    addLessonToChapters(lessonData,chapter_id)
+                    console.log(lessonData)
+                    toggleForm()
+                }
+            }catch(err){
+                console.log(err)
             }
-            addLessonToChapters(lessonData,chapter_id)
-            toggleForm()
+        }else{
+            try{
+                const videoData:VideoType={
+                    title:data.title,
+                    content_url:data.video_url
+                }
+    
+                const lessonData:LessonReqType={
+                    type:"video",
+                    order:order,
+                    video:videoData
+                }
+    
+            const response:LessonResType|null = await create_lesson_api(lessonData,course_id,chapter_id)
+    
+            if( response){
+                const lessonData:LessonType={
+                    lesson_id:response.lesson_id,
+                    order:order,
+                    type:"video",
+                    video:videoData
+                }
+                addLessonToChapters(lessonData,chapter_id)
+                toggleForm()
+            }
+    
+            }catch(err){
+                console.log(err)
+            }
         }
-
-        }catch(err){
-            console.log(err)
-        }
+        
     }
 
   return (

@@ -35,7 +35,7 @@ const AddNewContent = ({addLessonToChapters, chapter_id, course_id,order}: AddNe
       case "pdf":
         return(<PdfForm toggleForm={toggleAddLessonForm} showAddLessonForm={false} addLessonToChapters={addLessonToChapters} chapter_id={chapter_id} course_id={course_id} order={order}/>)
       case "quiz":
-        return(<QuizForm toggleForm={toggleAddLessonForm} showAddLessonForm={false}/>)
+        return(<QuizForm toggleForm={toggleAddLessonForm} showAddLessonForm={false} addLessonToChapters={addLessonToChapters} chapter_id={chapter_id} course_id={course_id} order={order}/>)
     } 
   }
 

@@ -1,4 +1,4 @@
-import { PDFType, VideoType } from "."
+import { PDFType, QuizType, VideoType } from "."
 
 export type CourseReqType = {
     title: string,
@@ -33,9 +33,11 @@ export type LessonReqType = {
     order?:number | undefined
     pdf?:PDFType | undefined
     video?:VideoType | undefined
+    quiz?: QuizType | undefined
 }
 
 export type LessonResType={
     lesson_id:string,
-    message:string
+    message:string,
+    quiz_id?: string
 }

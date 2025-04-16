@@ -16,9 +16,10 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { z} from 'zod'
 import { LessonType, PDFType } from '@/types'
 import { LessonReqType, LessonResType } from '@/types/instructor_types'
-import { create_lesson_api } from '@/api/instructor_api'
+import { create_lesson_api, edit_lesson_api } from '@/api/instructor_api'
 
 interface PdfFormProps {
+    lesson?: LessonType,
     showAddLessonForm:boolean;
     toggleForm :()=>void;
     addLessonToChapters: (lessonData :LessonType,chapter_id:string)=>void
@@ -27,19 +28,49 @@ interface PdfFormProps {
     order:number
 }
 
-const PdfForm = ({ toggleForm, addLessonToChapters, chapter_id, course_id ,order}: PdfFormProps) => {
+const PdfForm = ({ toggleForm, addLessonToChapters, chapter_id, course_id ,lesson ,order}: PdfFormProps) => {
     const form = useForm({
         resolver: zodResolver(PdfSchema),
         defaultValues: {
-            title: "",
+            title: (lesson?.pdf)?lesson.pdf.title:"",
             pdf_file: ""
         },
     })
 
     const onSubmit = async(data: z.infer<typeof PdfSchema>) => {
-        try{
+        if(lesson){
+            try{
+                const pdfData : PDFType={
+                    title:data.title,
+                    content_url:data.pdf_file
+                }
 
+                const lessonData: LessonReqType={
+                    type:"pdf",
+                    pdf:pdfData
+                }
 
+                const response:LessonResType|null =await edit_lesson_api(
+                    lessonData,course_id,chapter_id,lesson.lesson_id
+                )
+
+                if (response){
+                    const lessonData:LessonType={
+                        lesson_id:response.lesson_id,
+                        order:order,
+                        type: "pdf",
+                        pdf: pdfData,
+                    }
+    
+                    addLessonToChapters(lessonData,chapter_id)
+                    console.log(lessonData)
+                    toggleForm()
+                }
+            }catch(err){
+                console.log(err)
+            }
+        }else{
+            try{
             const pdfData : PDFType={
                 title:data.title,
                 content_url:data.pdf_file
@@ -65,15 +96,15 @@ const PdfForm = ({ toggleForm, addLessonToChapters, chapter_id, course_id ,order
                 toggleForm()
             }
 
-
             // prepare the lesson request data
             // call the api
 
             // if response, create the lesson data with id
             // and then call addLessonToChapters with prepare data just above
             // and then toggleForm
-        }catch(error){
-            console.log(error)
+            }catch(error){
+                console.log(error)
+            }
         }
     }
     

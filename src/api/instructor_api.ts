@@ -68,3 +68,17 @@ export const create_lesson_api = async (data:LessonReqType,course_id:string,chap
         return null
     }
 }
+
+
+export const edit_lesson_api =async (data:LessonReqType,course_id:string,chapter_id:string,lesson_id:string): Promise<LessonResType |null> => {
+    try{
+        const response =await axiosInstance.put(`/courses/${course_id}/chapters/${chapter_id}/lessons/${lesson_id}`,data)
+        if(response.status==200){
+            return response.data
+        }
+        return null
+    }catch(err){
+        console.log(err)
+        return null
+    }
+}

@@ -70,10 +70,6 @@ export const QuizSchema = z .object({
         message:"Description should be at least 10 characters long"
 
     }),
-    explanation: z.string().min(10, {
-        message:"Explanation should be at least 10 characters long"
-
-    })
 })
 
 export const LoginSchema = z .object({
@@ -85,3 +81,35 @@ export const LoginSchema = z .object({
     })
 })
 
+export const QuestionSchema = z.object({
+    title: z.string().min(1, { message: 'Title is required' }),
+    type: z.string().min(1, { message: 'Type is required' }),
+    explanation: z.string().min(6, { message: 'Explanation is required' }),
+    answers: z
+      .array(
+        z.object({
+          answer: z.string().min(1, { message: 'Answer is required' }),
+          is_correct: z.boolean(),
+        })
+      )
+      .min(1, { message: 'At least one answer is required' })
+  }).refine((ctx) => {
+    // If type is 'single', only one answer can be correct
+    if (ctx.type === 'single') {
+      const correctAnswers = ctx.answers.filter(a => a.is_correct);
+      if (correctAnswers.length !== 1) {
+        return false;
+      }
+    }
+    // If type is 'multiple', at least two answers must be correct
+    if (ctx.type === 'multiple') {
+      const correctAnswers = ctx.answers.filter(a => a.is_correct);
+      if (correctAnswers.length < 2) {
+        return false;
+      }
+    }
+    return true; // Validates if the conditions are met
+  }, {
+    path: [''],
+    message: 'Validation error: Answer conditions are not met based on the question type',
+  });

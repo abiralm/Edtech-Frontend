@@ -9,6 +9,7 @@ import Basic from '../component/course-create-sections/basic';
 import Review from '../component/course-create-sections/review';
 import CourseBuilder from '../component/course-create-sections/courseBuilder';
 import { ChapterType, CourseType, LessonType, mainCourseType } from '@/types';
+import { set } from 'zod';
 
 const initalMainCourseState: mainCourseType = {
     course: {
@@ -80,18 +81,38 @@ const CourseCreate = () => {
 
     //add edit functionality
     const addLessonToChapters =(lessonData :LessonType,chapter_id:string)=>{
+        // setMainCourseState((prevState)=>{
+        //     const updatedChapters = prevState.chapters.map((chapter)=>{
+        //         if (chapter.chapter_id == chapter_id){
+        //             return {
+        //                 ...chapter,
+        //                 lessons:[...chapter.lessons,lessonData]
+        //             }
+        //         }
+        //         return chapter
+        //     })
+        //     return{
+        //         ...prevState,chapters:updatedChapters
+        //     }
+        // })
         setMainCourseState((prevState)=>{
             const updatedChapters = prevState.chapters.map((chapter)=>{
-                if (chapter.chapter_id == chapter_id){
-                    return {
+                if(chapter.chapter_id=== chapter_id){
+                    const lessonIndex = chapter.lessons.findIndex((lesson)=>lesson.lesson_id==lessonData.lesson_id)
+
+                    const updatedLessons = lessonIndex >=0?
+                    chapter.lessons.map((less, index)=>index==lessonIndex?lessonData:less):[...chapter.lessons,lessonData]
+
+                    return{
                         ...chapter,
-                        lessons:[...chapter.lessons,lessonData]
+                        lessons:updatedLessons
                     }
                 }
-                return chapter
-            })
+                return chapter;
+            });
             return{
-                ...prevState,chapters:updatedChapters
+                ...prevState,
+                chapters:updatedChapters
             }
         })
     }
