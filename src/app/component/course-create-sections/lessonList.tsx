@@ -1,4 +1,4 @@
-import { LessonType } from '@/types'
+import { LessonType, QuestionType } from '@/types'
 import React, { useState } from 'react'
 import { FaVideo, FaFilePdf } from 'react-icons/fa'
 import { MdQuiz, MdEdit } from 'react-icons/md'
@@ -7,6 +7,7 @@ import QuizQuestionsForm from './quizQuestionsForm'
 import { Button } from '@/components/ui/button'
 import VideoForm from './videoForm'
 import QuizForm from './quizForm'
+import QuestionListDisplay from './questionListDisplay'
 
 
 interface LessonListProps {
@@ -17,9 +18,8 @@ interface LessonListProps {
 }
 
 const LessonList = ({lesson, addLessonToChapters, chapter_id, course_id}: LessonListProps) => {
-
     const [showQuizQuestions,setshowQuizQuestions] =useState<boolean>(true);
-
+    const [questionList,setQuestionList] = useState<QuestionType[]>([]);
     const [showEditLesson, setShowEditLesson] = useState(false)
 
     const toggleEditLessonForm = () =>{
@@ -31,6 +31,13 @@ const LessonList = ({lesson, addLessonToChapters, chapter_id, course_id}: Lesson
         console.log(showQuizQuestions)
         setshowQuizQuestions(!showQuizQuestions)
     }
+
+    //this functionlaity need to be modified - update
+    const addQuestions = (questionData:QuestionType)=>{
+        setQuestionList(prev=>[...prev,questionData])
+        console.log(questionList)
+    }
+
 
     if(showEditLesson){
         switch (lesson.type){
@@ -87,7 +94,12 @@ const LessonList = ({lesson, addLessonToChapters, chapter_id, course_id}: Lesson
             /> */}
             </div>
         </div>
-        {lesson.type == 'quiz' && (showQuizQuestions? <QuizQuestionsForm showQuizQuestions={showQuizQuestions} toggleQuizQuestions={Quizfunction}/>:<Button onClick={Quizfunction}>Add Question</Button>)}
+
+        {questionList.length>0 ? questionList.map((question, index)=>(lesson.quiz?.quiz_id && <div key={index}><QuestionListDisplay question={question} addQuestions={addQuestions} quiz_id={lesson.quiz?.quiz_id}/></div>)):<></>}
+        {lesson.type == 'quiz' && ((showQuizQuestions && lesson.quiz?.quiz_id) ? 
+        <QuizQuestionsForm toggleQuizQuestions={Quizfunction} addQuestions={addQuestions} quiz_id={lesson.quiz?.quiz_id}/>
+        :
+        <Button onClick={Quizfunction}>Add Question</Button>)}
     </div>
   )
 }

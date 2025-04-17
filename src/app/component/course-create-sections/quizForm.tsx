@@ -66,7 +66,13 @@ const QuizForm = ({ toggleForm, addLessonToChapters, chapter_id, course_id ,less
                     lessonData,course_id,chapter_id,lesson.lesson_id
                 )
 
+
                 if (response){
+                    const quizData: QuizType ={
+                        quiz_id: response.quiz_id,
+                        title:data.title,
+                        description:data.description
+                    }
                     const lessonData:LessonType={
                         lesson_id:response.lesson_id,
                         order:order,
@@ -83,6 +89,8 @@ const QuizForm = ({ toggleForm, addLessonToChapters, chapter_id, course_id ,less
             }
         }else{
             try{
+
+                // data for api
                 const quizData : QuizType={
                     title:data.title,
                     description:data.description
@@ -96,11 +104,12 @@ const QuizForm = ({ toggleForm, addLessonToChapters, chapter_id, course_id ,less
                 const response:LessonResType|null = await create_lesson_api(lessonData,course_id,chapter_id)
     
                 if (response){
-                    // const quizData : QuizType={
-                    //     quiz_id: response.quiz_id,
-                    //     title:data.title,
-                    //     description:data.description
-                    // }
+                    const quizData: QuizType ={
+                        quiz_id: response.quiz_id,
+                        title:data.title,
+                        description:data.description
+                    }
+                    //data for state
                     const lessonData:LessonType={
                         lesson_id:response.lesson_id,
                         order:order,

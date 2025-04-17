@@ -43,6 +43,21 @@ export type LessonType = {
     quiz_id?: string,
     title: string,
     description: string,
+    questions?:QuestionType[]
+  }
+
+  export type QuestionType = {
+    question_id?: string;
+    title: string;
+    type:string;
+    explanation: string;
+    answers?:AnswerType[]
+  }
+
+  export type AnswerType = {
+    answer_id?: string | undefined;
+    answer: string;
+    is_correct: boolean;
   }
 
 export type mainCourseType = {
@@ -50,3 +65,4 @@ export type mainCourseType = {
     chapters: ChapterType[],
     status: 'draft' | 'published'
 }
+
