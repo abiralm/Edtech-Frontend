@@ -56,3 +56,11 @@ export type QuestionResType = {
     answers:AnswerType[],
 
 }
+
+export type QuestionEditReqType = {
+    title: string,
+    type: string,
+    answers:AnswerType[],
+    deleted_answer_ids: string[],
+    explanation: string
+}

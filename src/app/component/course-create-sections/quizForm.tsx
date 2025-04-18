@@ -51,7 +51,7 @@ const QuizForm = ({ toggleForm, addLessonToChapters, chapter_id, course_id ,less
 
 
     const onSubmit = async(data: z.infer<typeof QuizSchema>) => {
-        if(lesson){
+        if(lesson){ 
             try{
                 const quizData : QuizType={
                     title:data.title,
@@ -134,7 +134,6 @@ const QuizForm = ({ toggleForm, addLessonToChapters, chapter_id, course_id ,less
             }
         }
         }
-
 
   return (
     <div className="my-6">

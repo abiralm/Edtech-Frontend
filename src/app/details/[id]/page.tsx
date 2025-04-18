@@ -10,13 +10,13 @@ import { CourseContent } from "@/app/component/layout/courseContent";
 export default function Details() {
 
   return (
-    <div className='border-2 grid grid-cols-3 gap-y-2 gap-x- p-8 bg-[#F9FAFB] '>
+    <div className='grid grid-cols-1 lg:grid-cols-3 gap-y-2 gap-x-2 p-3 sm:p-8 bg-[#F9FAFB] '>
       
-        <div className=' px-2 py-4 m-2 col-span-3 bg-[#FFFFFF] rounded-xl '>
+        <div className=' px-2 py-4 m-2 col-span-1 lg:col-span-3 bg-[#FFFFFF] rounded-xl '>
 
-            <div className='grid grid-cols-2 gap-2 items-center justify-evenly'>
+            <div className='grid grid-cols-1 lg:grid-cols-2 gap-2 items-center justify-evenly'>
                 
-                <div className="px-8">
+                <div className="px-4 sm:px-8">
 
                   {/* badges */}
                   <div className="flex my-2 gap-2">
@@ -25,7 +25,7 @@ export default function Details() {
                   </div>
 
                   {/* text */}
-                  <h2 className="text-3xl font-bold my-6">Complete Web Development Bootcamp 2025</h2>
+                  <h2 className="text-2xl sm:text-3xl font-bold my-6">Complete Web Development Bootcamp 2025</h2>
                   <p className="my-6">Master web development from scratch: HTML, CSS, JavaScript, React, Node.js, and more. Build real-world projects.</p>
                   
                   {/* ratings */}
@@ -33,12 +33,12 @@ export default function Details() {
 
                     <div className="flex items-center gap-2">
                       <FaStar className="text-xl"/>
-                      <p><span>4.8 </span>(2.5k reviews)</p>
+                      <p  className="text-sm sm:text-base"><span>4.8 </span>(2.5k reviews)</p>
                     </div>
 
                     <div className="flex items-center gap-2">
                       <FaUserGroup className="text-xl"/>
-                      <span>15000 students</span>
+                      <span className="text-sm sm:text-base">15000 students</span>
                     </div>
                   </div>
 
@@ -69,8 +69,8 @@ export default function Details() {
         <div className='m-2 col-span-2 rounded-xl'>
 
             {/* course features */}
-            <div className="col-span-2 p-8 m-2 bg-[#FFFFFF] rounded-xl border-2">
-              <h2 className="text-3xl font-bold my-6">What You'll Learn</h2>
+            <div className="col-span-2 p-4 sm:p-8 m-2 bg-[#FFFFFF] rounded-xl">
+              <h2 className="text-xl sm:text-3xl font-bold my-2 sm:my-6">What You'll Learn</h2>
               <div className="grid grid-cols-2 gap-2">
                 <div className="flex items-center gap-x-2">
                   <FaCheck/>
@@ -85,9 +85,9 @@ export default function Details() {
             </div>
             
             {/* requirements */}
-            <div className='p-8 m-2 col-span-2 bg-[#FFFFFF] rounded-xl'>
+            <div className='col-span-2 p-4 sm:p-8 m-2 bg-[#FFFFFF] rounded-xl'>
               <div>
-                <h2 className="text-3xl font-bold my-6 ">Requirements</h2>
+                <h2 className="text-xl sm:text-3xl font-bold my-2 sm:my-6 ">Requirements</h2>
               </div>
               <ul>
                 <li>1</li>
@@ -99,6 +99,7 @@ export default function Details() {
           {/* </div> */}
         </div>
 
+        {/* enroll */}
         <div className="p-2 m-2 flex justify-end items-start"> 
           <Coursecard/>
         </div>

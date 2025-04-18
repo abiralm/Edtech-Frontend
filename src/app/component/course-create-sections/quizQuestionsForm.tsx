@@ -21,8 +21,8 @@ import { z } from 'zod';
 import { Input } from '@/components/ui/input';
 import { Checkbox } from '@/components/ui/checkbox';
 import { AnswerType, QuestionType } from '@/types';
-import { QuestionReqType, QuestionResType } from '@/types/instructor_types';
-import { create_question_api } from '@/api/instructor_api';
+import { QuestionEditReqType, QuestionReqType, QuestionResType } from '@/types/instructor_types';
+import { create_question_api, edit_question_api } from '@/api/instructor_api';
 
 
 interface QuizFormProps {
@@ -65,21 +65,48 @@ const QuizQuestionsForm = ({ toggleQuizQuestions, addQuestions, quiz_id ,questio
     const onSubmit = async (data: z.infer<typeof QuestionSchema>) => {
         console.log(data)
 
-        if(question){
+        if(question && question.question_id){
             try {
+                // updated answers filtered such that deleted ids are removed 
+                let updated_answers = question.answers?.filter(answer =>
+                    answer.answer_id !== undefined && !deletedAnswerIds.includes(answer.answer_id)
+                )
+                if(updated_answers == undefined){
+                    throw new Error("updated_answers is undefined");
+                }
 
-                const questionData: QuestionReqType = {
+                for (const key in updated_answers){
+                    updated_answers[key].answer = data.answers[key].answer
+                    updated_answers[key].is_correct = data.answers[key].is_correct
+                }
+
+                const new_answers = data.answers.slice(updated_answers.length)
+
+                for(let i=0;i<new_answers.length;i++){
+                    const ans: AnswerType = {
+                        answer_id: undefined,
+                        answer: new_answers[i].answer,
+                        is_correct: new_answers[i].is_correct
+                    }
+
+                    updated_answers = updated_answers?.concat(ans)
+                }
+
+
+
+                const questionData: QuestionEditReqType = {
                     title: data.title,
                     type: data.type,
-                    answers: data.answers,
-                    explanation: data.explanation
+                    answers: updated_answers,
+                    explanation: data.explanation,
+                    deleted_answer_ids: deletedAnswerIds
                 }
+
+                // console.log("LETS SEE: ", questionData)
                 // some response from api call
-                const response: QuestionResType | null = await create_question_api(questionData,quiz_id)
-    
+                const response: QuestionResType | null = await edit_question_api(questionData,quiz_id,question.question_id)
+
                 if (response) {
-                    
-    
                     const questionData: QuestionType = {
                         question_id: response.question_id,
                         title: data.title,
@@ -87,7 +114,7 @@ const QuizQuestionsForm = ({ toggleQuizQuestions, addQuestions, quiz_id ,questio
                         explanation: data.explanation,
                         answers: response.answers
                     }
-    
+                    
                     addQuestions(questionData)
                     toggleQuizQuestions()
                 }
@@ -108,8 +135,6 @@ const QuizQuestionsForm = ({ toggleQuizQuestions, addQuestions, quiz_id ,questio
                 const response: QuestionResType | null = await create_question_api(questionData,quiz_id)
     
                 if (response) {
-                    
-    
                     const questionData: QuestionType = {
                         question_id: response.question_id,
                         title: data.title,
@@ -282,7 +307,7 @@ const QuizQuestionsForm = ({ toggleQuizQuestions, addQuestions, quiz_id ,questio
                                     className="rounded-sm bg-[#2563EB] hover:bg-[#1d4ed8]"
 
                                 >
-                                    Add Question
+                                    {question?`Edit Question`:`Add Question`}
                                 </Button>
                                 <Button
                                     type="button"

@@ -1,5 +1,5 @@
 import { axiosInstance } from "@/axios/instance"
-import { ChapterReqType, ChapterResType, CourseReqType, CourseResType, LessonReqType, LessonResType, QuestionReqType, QuestionResType } from "@/types/instructor_types"
+import { ChapterReqType, ChapterResType, CourseReqType, CourseResType, LessonReqType, LessonResType, QuestionEditReqType, QuestionReqType, QuestionResType } from "@/types/instructor_types"
 
 
 export const create_course_api = async (data:CourseReqType): Promise<CourseResType | null> =>{
@@ -86,6 +86,19 @@ export const edit_lesson_api =async (data:LessonReqType,course_id:string,chapter
 export const create_question_api = async (data:QuestionReqType,quiz_id:string): Promise<QuestionResType |null>=>{
     try{
         const response =await axiosInstance.post(`/quizzes/${quiz_id}/questions`,data)
+        if(response.status==200){
+            return response.data
+        }
+        return null
+    }catch(err){
+        console.log(err)
+        return null
+    }
+}
+
+export const edit_question_api = async (data:QuestionEditReqType,quiz_id:string,question_id:string): Promise <QuestionResType | null>=>{
+    try{
+        const response =await axiosInstance.put(`/quizzes/${quiz_id}/questions/${question_id}`,data)
         if(response.status==200){
             return response.data
         }

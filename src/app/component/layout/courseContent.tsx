@@ -38,7 +38,7 @@ export function CourseContent() {
         </div>
         
         <div>
-            <span>X Lectures • Y min</span>
+            <span className="text-xs sm:text-base">X Lectures • Y min</span>
         </div>
         
       </div>
