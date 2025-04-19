@@ -34,8 +34,20 @@ const LessonList = ({lesson, addLessonToChapters, chapter_id, course_id}: Lesson
 
     //this functionlaity need to be modified - update
     const addQuestions = (questionData:QuestionType)=>{
-        setQuestionList(prev=>[...prev,questionData])
-        console.log(questionList)
+        // setQuestionList(prev=>[...prev,questionData])
+
+        setQuestionList((prev)=>{
+            const questionIndex = prev.findIndex((q)=>q.question_id==questionData.question_id)
+
+            if (questionIndex >=0){
+                const updatedList = [...prev];
+                updatedList[questionIndex] = questionData;
+                return updatedList;
+            } else {
+                return [...prev, questionData];
+            }
+        })
+        
     }
 
 

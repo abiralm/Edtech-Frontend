@@ -81,20 +81,6 @@ const CourseCreate = () => {
 
     //add edit functionality
     const addLessonToChapters =(lessonData :LessonType,chapter_id:string)=>{
-        // setMainCourseState((prevState)=>{
-        //     const updatedChapters = prevState.chapters.map((chapter)=>{
-        //         if (chapter.chapter_id == chapter_id){
-        //             return {
-        //                 ...chapter,
-        //                 lessons:[...chapter.lessons,lessonData]
-        //             }
-        //         }
-        //         return chapter
-        //     })
-        //     return{
-        //         ...prevState,chapters:updatedChapters
-        //     }
-        // })
         setMainCourseState((prevState)=>{
             const updatedChapters = prevState.chapters.map((chapter)=>{
                 if(chapter.chapter_id=== chapter_id){

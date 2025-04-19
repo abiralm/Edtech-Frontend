@@ -64,7 +64,6 @@ export default function Details() {
             </div>
         </div>
         
-
         {/* left */}
         <div className='m-2 col-span-2 rounded-xl'>
 
@@ -77,7 +76,6 @@ export default function Details() {
                 </div>
               </div>
             </div>
-
 
             {/* margin needs adjustment here */}
             <div className='m-2 my-8 col-span-2 bg-[#FFFFFF] rounded-xl'>

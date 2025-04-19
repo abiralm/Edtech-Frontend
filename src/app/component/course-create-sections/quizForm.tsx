@@ -118,7 +118,7 @@ const QuizForm = ({ toggleForm, addLessonToChapters, chapter_id, course_id ,less
                     }
     
                     addLessonToChapters(lessonData,chapter_id)
-                    console.log(lessonData)
+                    // console.log(lessonData)
                     toggleForm()
                     
                 }

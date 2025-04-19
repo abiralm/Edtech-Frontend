@@ -102,7 +102,7 @@ const QuizQuestionsForm = ({ toggleQuizQuestions, addQuestions, quiz_id ,questio
                     deleted_answer_ids: deletedAnswerIds
                 }
 
-                // console.log("LETS SEE: ", questionData)
+                console.log("LETS SEE: ", questionData)
                 // some response from api call
                 const response: QuestionResType | null = await edit_question_api(questionData,quiz_id,question.question_id)
 
