@@ -20,14 +20,16 @@ export const CreateNewCourseSchema = z.object({
 })
 
 
-export const CreateCourseReviewSchema =z.object({
-    description: z.string().min(10, {
-        message: "Description should be at least 10 characters long"
-    }),
+export const CreateCourseReviewSchema = z.object({
+
+    // this will be updated later
+    // description: z.string().min(10, {
+    //     message: "Description should be at least 10 characters long"
+    // }),
     pricing: z.enum(["free", "paid"], {
         message: "Please select one"
     }),
-    price : z.string().optional()
+    price: z.string().optional()
 
 })
 
@@ -43,7 +45,7 @@ export const ChapterSchema = z.object({
 })
 
 export const VideoSchema = z.object({
-    title: z.string().min(3,{
+    title: z.string().min(3, {
         message: "Title should be at least 3 characters long"
     }),
     video_url: z.string().min(1, {
@@ -53,7 +55,7 @@ export const VideoSchema = z.object({
 
 
 export const PdfSchema = z.object({
-    title: z.string().min(3,{
+    title: z.string().min(3, {
         message: "Title should be at least 3 characters long"
     }),
     pdf_file: z.string().min(1, {
@@ -62,17 +64,17 @@ export const PdfSchema = z.object({
 })
 
 
-export const QuizSchema = z .object({
-    title: z.string().min(3,{
+export const QuizSchema = z.object({
+    title: z.string().min(3, {
         message: "Title should be at least 3 characters long"
     }),
     description: z.string().min(10, {
-        message:"Description should be at least 10 characters long"
+        message: "Description should be at least 10 characters long"
 
     }),
 })
 
-export const LoginSchema = z .object({
+export const LoginSchema = z.object({
     email: z.string().min(2, {
         message: "Username must be at least 2 characters.",
     }),
@@ -86,30 +88,30 @@ export const QuestionSchema = z.object({
     type: z.string().min(1, { message: 'Type is required' }),
     explanation: z.string().min(6, { message: 'Explanation is required' }),
     answers: z
-      .array(
-        z.object({
-          answer: z.string().min(1, { message: 'Answer is required' }),
-          is_correct: z.boolean(),
-        })
-      )
-      .min(1, { message: 'At least one answer is required' })
-  }).refine((ctx) => {
+        .array(
+            z.object({
+                answer: z.string().min(1, { message: 'Answer is required' }),
+                is_correct: z.boolean(),
+            })
+        )
+        .min(1, { message: 'At least one answer is required' })
+}).refine((ctx) => {
     // If type is 'single', only one answer can be correct
     if (ctx.type === 'single') {
-      const correctAnswers = ctx.answers.filter(a => a.is_correct);
-      if (correctAnswers.length !== 1) {
-        return false;
-      }
+        const correctAnswers = ctx.answers.filter(a => a.is_correct);
+        if (correctAnswers.length !== 1) {
+            return false;
+        }
     }
     // If type is 'multiple', at least two answers must be correct
     if (ctx.type === 'multiple') {
-      const correctAnswers = ctx.answers.filter(a => a.is_correct);
-      if (correctAnswers.length < 2) {
-        return false;
-      }
+        const correctAnswers = ctx.answers.filter(a => a.is_correct);
+        if (correctAnswers.length < 2) {
+            return false;
+        }
     }
     return true; // Validates if the conditions are met
-  }, {
+}, {
     path: [''],
     message: 'Validation error: Answer conditions are not met based on the question type',
-  });
+});

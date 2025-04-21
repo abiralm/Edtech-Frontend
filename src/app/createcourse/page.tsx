@@ -153,7 +153,7 @@ const CourseCreate = () => {
             ))}
             </div>
 
-            {step === 0 && (
+            {step === 1 && (
                 <Basic 
                     handleBack={handleBack}
                     handleForward={handleForward} 
@@ -162,11 +162,12 @@ const CourseCreate = () => {
                 />
             )}
         
-            {step === 2 && (
+            {step === 0 && (
                 <Review 
                     handleBack={handleBack}
                     handleForward={handleForward} 
                     step={step}
+                    course_id={mainCourseState.course.course_id}
                 />
             )}
 

@@ -64,3 +64,9 @@ export type QuestionEditReqType = {
     deleted_answer_ids: string[],
     explanation: string
 }
+
+export type PricingReqType ={
+    pricing: "free" | "paid",
+    status:"draft" | "published",
+    price?:string
+}

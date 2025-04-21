@@ -1,5 +1,5 @@
 import { axiosInstance } from "@/axios/instance"
-import { ChapterReqType, ChapterResType, CourseReqType, CourseResType, LessonReqType, LessonResType, QuestionEditReqType, QuestionReqType, QuestionResType } from "@/types/instructor_types"
+import { ChapterReqType, ChapterResType, CourseReqType, CourseResType, LessonReqType, LessonResType, PricingReqType, QuestionEditReqType, QuestionReqType, QuestionResType } from "@/types/instructor_types"
 
 
 export const create_course_api = async (data:CourseReqType): Promise<CourseResType | null> =>{
@@ -104,6 +104,19 @@ export const edit_question_api = async (data:QuestionEditReqType,quiz_id:string,
         }
         return null
     }catch(err){
+        console.log(err)
+        return null
+    }
+}
+
+export const pricing_api = async (data:PricingReqType,course_id:string): Promise<any|void>=>{
+    try {
+        const response = await axiosInstance.put(`/courses/${course_id}/status-price`,data)
+        if (response.status == 200) {
+            console.log(response.data)
+        }
+        return null
+    } catch (err) {
         console.log(err)
         return null
     }
