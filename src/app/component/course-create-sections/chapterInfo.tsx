@@ -21,9 +21,10 @@ interface ChapterInfoProps {
     onAddLesson?: (lessonData:LessonType) => void;
     course_id: string
     addLessonToChapters: (lessonData :LessonType,chapter_id:string)=>void
+    deleteLesson:(chapter_id:string, lesson_id:string)=>void
 }
 
-const ChapterInfo = ({ chapters, addChapterInState,onAddLesson,deleteChapterFromState, course_id, addLessonToChapters }: ChapterInfoProps) => {
+const ChapterInfo = ({ chapters, addChapterInState,onAddLesson,deleteChapterFromState, course_id, addLessonToChapters,deleteLesson }: ChapterInfoProps) => {
 
 
     // const [editing,setEditingLesson] = useState<{
@@ -45,7 +46,7 @@ const ChapterInfo = ({ chapters, addChapterInState,onAddLesson,deleteChapterFrom
                 <CardContent>
                     {chapter.lessons.length != 0 ? <div className="space-y-2">
                         {chapter.lessons.map((lesson) => (
-                            <LessonList key={lesson.lesson_id} lesson={lesson} addLessonToChapters={addLessonToChapters} chapter_id={chapter.chapter_id} course_id={course_id}/>
+                            <LessonList key={lesson.lesson_id} lesson={lesson} addLessonToChapters={addLessonToChapters} deleteLesson={deleteLesson} chapter_id={chapter.chapter_id} course_id={course_id}/>
                         ))}
                         </div> : null}
                     <AddNewContent addLessonToChapters={addLessonToChapters} chapter_id={chapter.chapter_id} course_id={course_id} order={chapter.lessons?.length}/>

@@ -17,9 +17,10 @@ interface BasicProps {
   deleteChapterFromState: (chapterData: ChapterType) =>void
   chapters: ChapterType[]
   addLessonToChapters: (lessonData :LessonType,chapter_id:string)=>void
+  deleteLesson:(chapter_id:string, lesson_id:string)=>void
 }
 
-const CourseBuilder = ({ handleBack, handleForward, step, course_id, addChapterInState,deleteChapterFromState, chapters, addLessonToChapters}: BasicProps) => {
+const CourseBuilder = ({ handleBack, handleForward, step, course_id, addChapterInState,deleteChapterFromState, chapters, addLessonToChapters,deleteLesson}: BasicProps) => {
 
   const [showCreateCourseForm,setshowCreateCourseForm] =useState<boolean>(true)
 
@@ -37,7 +38,7 @@ const CourseBuilder = ({ handleBack, handleForward, step, course_id, addChapterI
         </CardHeader>
         
         <CardContent>
-            <ChapterInfo chapters={chapters} addChapterInState={addChapterInState} deleteChapterFromState={deleteChapterFromState} course_id={course_id} addLessonToChapters={addLessonToChapters}/>
+            <ChapterInfo chapters={chapters} addChapterInState={addChapterInState} deleteChapterFromState={deleteChapterFromState} course_id={course_id} addLessonToChapters={addLessonToChapters} deleteLesson={deleteLesson}/>
             {showCreateCourseForm?(<ChapterForm toggleForm={toggleCreateCourseForm} addChapterInState={addChapterInState} course_id={course_id} order={chapters.length}/>):null}
         </CardContent>
 

@@ -54,15 +54,35 @@ const Review = ({ course_id, handleBack, handleForward, step }: BasicProps) => {
 
     const onSubmit = async (data: z.infer<typeof CreateCourseReviewSchema>) => {
         console.log(data)
-        try {
+        // try {
 
+        //     const pricingData: PricingReqType = {
+        //         status: "published",
+        //         pricing: data.pricing,
+        //         price: data.pricing == "paid" ? data.price : "0"
+        //     }
+        //     const response = await pricing_api(pricingData, course_id)
+        //     if (response) {
+        //         router.push("/")
+        //     } else {
+        //         console.log("Some error and false value")
+        //     }
+        // } catch (err) {
+        //     console.log("Error in course setup form ", err)
+        // }
+    }
+
+    const saveAsDraft = async (data: z.infer<typeof CreateCourseReviewSchema>) => {
+        console.log(data)
+        try {
             const pricingData: PricingReqType = {
-                status: "published",
+                status: "draft",
                 pricing: data.pricing,
                 price: data.pricing == "paid" ? data.price : "0"
             }
             const response = await pricing_api(pricingData, course_id)
             if (response) {
+                console.log("working")
                 router.push("/")
             } else {
                 console.log("Some error and false value")
@@ -72,18 +92,18 @@ const Review = ({ course_id, handleBack, handleForward, step }: BasicProps) => {
         }
     }
 
-    const saveAsDraft = async (data: z.infer<typeof CreateCourseReviewSchema>) => {
+    const saveAndPublish= async (data: z.infer<typeof CreateCourseReviewSchema>) => {
         console.log(data)
         try {
-
             const pricingData: PricingReqType = {
-                status: "draft",
+                status: "published",
                 pricing: data.pricing,
                 price: data.pricing == "paid" ? data.price : "0"
             }
             const response = await pricing_api(pricingData, course_id)
             if (response) {
-                router.push("/")
+                console.log("working")
+                router.push("/courses")
             } else {
                 console.log("Some error and false value")
             }
@@ -189,7 +209,7 @@ const Review = ({ course_id, handleBack, handleForward, step }: BasicProps) => {
                             Save as Draft
                         </Button>
 
-                        <Button type="submit" className="rounded-sm bg-[#2563EB] hover">
+                        <Button type="button" onClick={form.handleSubmit(saveAndPublish)}>
                             Save and Publish
                         </Button>
                     </div>

@@ -1,13 +1,14 @@
 import { LessonType, QuestionType } from '@/types'
 import React, { useState } from 'react'
 import { FaVideo, FaFilePdf } from 'react-icons/fa'
-import { MdQuiz, MdEdit } from 'react-icons/md'
+import { MdQuiz, MdEdit, MdDelete } from 'react-icons/md'
 import PdfForm from './pdfForm'
 import QuizQuestionsForm from './quizQuestionsForm'
 import { Button } from '@/components/ui/button'
 import VideoForm from './videoForm'
 import QuizForm from './quizForm'
 import QuestionListDisplay from './questionListDisplay'
+import { delete_lesson_api } from '@/api/instructor_api'
 
 
 interface LessonListProps {
@@ -15,15 +16,28 @@ interface LessonListProps {
     addLessonToChapters: (lessonData :LessonType,chapter_id:string)=>void
     chapter_id: string
     course_id: string
+    deleteLesson:(chapter_id:string, lesson_id:string)=>void
 }
 
-const LessonList = ({lesson, addLessonToChapters, chapter_id, course_id}: LessonListProps) => {
+const LessonList = ({lesson, addLessonToChapters, chapter_id, course_id,deleteLesson}: LessonListProps) => {
     const [showQuizQuestions,setshowQuizQuestions] =useState<boolean>(true);
     const [questionList,setQuestionList] = useState<QuestionType[]>([]);
     const [showEditLesson, setShowEditLesson] = useState(false)
 
     const toggleEditLessonForm = () =>{
         setShowEditLesson(!showEditLesson)
+    }
+
+    const handleLessonDeletion =async()=>{
+        try{
+            const response = await delete_lesson_api(course_id,chapter_id,lesson.lesson_id)
+            if(response){
+                console.log("deleted lesson",lesson.lesson_id)
+                deleteLesson(chapter_id,lesson.lesson_id)
+            }
+        }catch(err){
+            console.log(err)
+        }
     }
 
     const Quizfunction = ()=>{
@@ -49,6 +63,7 @@ const LessonList = ({lesson, addLessonToChapters, chapter_id, course_id}: Lesson
         })
         
     }
+    
 
 
     if(showEditLesson){
@@ -100,6 +115,7 @@ const LessonList = ({lesson, addLessonToChapters, chapter_id, course_id}: Lesson
             <MdEdit className="text-md cursor-pointer" 
                 onClick={toggleEditLessonForm}
             />
+            <MdDelete onClick={handleLessonDeletion}/> 
             {/* <SlOptionsVertical 
                 className="text-md cursor-pointer" 
                 onClick={() => console.log("Options clicked for lesson:", lesson.lesson_id)}

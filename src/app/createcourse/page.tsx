@@ -103,6 +103,27 @@ const CourseCreate = () => {
         })
     }
 
+    const deleteLesson = (chapter_id:string, lesson_id:string)=>{
+        setMainCourseState((prevState)=>{
+            const updatedChapters = prevState.chapters.map((chapter)=>{
+                if(chapter.chapter_id==chapter_id){
+                    const filteredLessons = chapter.lessons.filter(
+                        (lesson)=>lesson.lesson_id!==lesson_id
+                    );
+                    return{
+                        ...chapter,
+                        lessons:filteredLessons
+                    }
+                }
+                return chapter
+            })
+            return {
+                ...prevState,
+                chapters:updatedChapters
+            }
+        })
+    }
+
     const onSubmit = async (formData: unknown) => {
         if (step < totalSteps - 1) {
         setStep(step + 1)
@@ -153,7 +174,7 @@ const CourseCreate = () => {
             ))}
             </div>
 
-            {step === 1 && (
+            {step === 0 && (
                 <Basic 
                     handleBack={handleBack}
                     handleForward={handleForward} 
@@ -162,7 +183,7 @@ const CourseCreate = () => {
                 />
             )}
         
-            {step === 0 && (
+            {step === 2 && (
                 <Review 
                     handleBack={handleBack}
                     handleForward={handleForward} 
@@ -183,7 +204,7 @@ const CourseCreate = () => {
                     addChapterInState={addChapterInState}
                     deleteChapterFromState={deleteChapterFromState}
                     addLessonToChapters={addLessonToChapters}
-                    // lessons={mainCourseState.chapters.}
+                    deleteLesson={deleteLesson}
                 />
             )}  
             
