@@ -103,7 +103,7 @@ const Review = ({ course_id, handleBack, handleForward, step }: BasicProps) => {
             const response = await pricing_api(pricingData, course_id)
             if (response) {
                 console.log("working")
-                router.push("/courses")
+                router.push("/instructor-dashboard/instructor-courses")
             } else {
                 console.log("Some error and false value")
             }
