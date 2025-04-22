@@ -92,8 +92,6 @@ const QuizQuestionsForm = ({ toggleQuizQuestions, addQuestions, quiz_id ,questio
                     updated_answers = updated_answers?.concat(ans)
                 }
 
-
-
                 const questionData: QuestionEditReqType = {
                     title: data.title,
                     type: data.type,

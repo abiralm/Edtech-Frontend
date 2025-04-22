@@ -28,6 +28,7 @@ import {
 } from "@/components/ui/table"
 
 import { courseList } from '@/mocks/courses'
+import { Badge } from '@/components/ui/badge'
 
 const page = () => {
     return (
@@ -108,18 +109,18 @@ const page = () => {
                             <TableRow key={c.course_id} className='border-y-2'>
                                 <TableCell className="font-semibold">{c.course_name}</TableCell>
                                 <TableCell className=''>{c.course_price}</TableCell>
-                                <TableCell className=''>{c.status}</TableCell>
+                                <TableCell className=''><Badge className={`${c.status === "Draft" ? "bg-[#FEF3C7] text-[#B45309]" : "bg-[#D1FAE5] text-[#047857]"}`}>
+                                    {c.status}
+                                </Badge></TableCell>
                                 <TableCell className="">1200</TableCell>
                                 <TableCell className=''>{c.rating}</TableCell>
                                 <TableCell>Actions</TableCell>
                             </TableRow>
+
+
                         ))}
                     </TableBody>
                     <TableFooter>
-                        {/* <TableRow>
-                            <TableCell colSpan={3}>Total</TableCell>
-                            <TableCell className="text-right">$2,500.00</TableCell>
-                        </TableRow> */}
                     </TableFooter>
                 </Table>
             </div>

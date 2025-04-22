@@ -122,7 +122,18 @@ export const edit_question_api = async (data: QuestionEditReqType, quiz_id: stri
     }
 }
 
-//delete lesson  api
+export const delete_question_api = async (quiz_id:string,question_id:string)=>{
+    try {
+        const response = await axiosInstance.delete(`/quizzes/${quiz_id}/questions/${question_id}`)
+        if (response.status == 200 || response.status == 204) {
+            return true
+        }
+        return null
+    } catch (err) {
+        console.log(err)
+        return null
+    }
+}
 
 export const pricing_api = async (data: PricingReqType, course_id: string): Promise<any | void> => {
     try {
