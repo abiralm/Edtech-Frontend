@@ -139,7 +139,7 @@ const page = () => {
 
 
             {/* pagination spacing needs updating */}
-            <div className="flex justify-between items-center border-2 border-amber-950">
+            <div className="flex justify-between items-center">
                 <span>Showing X to Y of Z entries</span>
                 <Pagination className="flex w-1/4 m-0">
                     <PaginationContent className="flex items-center space-x-2">
