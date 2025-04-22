@@ -2,7 +2,7 @@
 
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Link from 'next/link'
 import { FaPlus } from "react-icons/fa";
 
@@ -40,8 +40,23 @@ import {
 
 import { courseList } from '@/mocks/courses'
 import { Badge } from '@/components/ui/badge'
+import { get_course_list_api } from '@/api/courses_api'
+import { CourseGetResType } from '@/types/course_types'
 
 const page = () => {
+
+    const [courseData, setCourseData] = useState<CourseGetResType[]>([]);
+    console.log(courseData)
+    useEffect(() => {
+        const getData = async () => {
+            const res = await get_course_list_api()
+            if (res) {
+                setCourseData(res)
+            }
+        }
+        getData();
+    }, [])
+
     return (
         <div className='my-4 mx-8'>
             {/* top section */}
@@ -116,15 +131,15 @@ const page = () => {
                     </TableHeader>
 
                     <TableBody className=''>
-                        {courseList.map((c) => (
+                        {courseData.map((c) => (
                             <TableRow key={c.course_id} className='border-y-2'>
-                                <TableCell className="font-semibold">{c.course_name}</TableCell>
-                                <TableCell className=''>{c.course_price}</TableCell>
-                                <TableCell className=''><Badge className={`${c.status === "Draft" ? "bg-[#FEF3C7] text-[#B45309]" : "bg-[#D1FAE5] text-[#047857]"}`}>
+                                <TableCell className="font-semibold">{c.title}</TableCell>
+                                <TableCell className=''>1200</TableCell>
+                                <TableCell className=''><Badge className={`${c.status === "draft" ? "bg-[#FEF3C7] text-[#B45309]" : "bg-[#D1FAE5] text-[#047857]"}`}>
                                     {c.status}
                                 </Badge></TableCell>
                                 <TableCell className="">1200</TableCell>
-                                <TableCell className=''>{c.rating}</TableCell>
+                                <TableCell className=''>Rating</TableCell>
                                 <TableCell>Actions</TableCell>
                             </TableRow>
 
