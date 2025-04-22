@@ -27,6 +27,17 @@ import {
     TableRow,
 } from "@/components/ui/table"
 
+import {
+    Pagination,
+    PaginationContent,
+    PaginationEllipsis,
+    PaginationItem,
+    PaginationLink,
+    PaginationNext,
+    PaginationPrevious,
+} from "@/components/ui/pagination"
+
+
 import { courseList } from '@/mocks/courses'
 import { Badge } from '@/components/ui/badge'
 
@@ -124,6 +135,41 @@ const page = () => {
                     </TableFooter>
                 </Table>
             </div>
+
+
+
+            {/* pagination spacing needs updating */}
+            <div className="flex justify-between items-center border-2 border-amber-950">
+                <span>Showing X to Y of Z entries</span>
+                <Pagination className="flex w-1/4 m-0">
+                    <PaginationContent className="flex items-center space-x-2">
+                        <PaginationItem>
+                            <PaginationPrevious
+                                href="#"
+                                className="px-3 py-1 text-gray-700 bg-gray-200 rounded-md hover:bg-gray-300 transition"
+                            />
+                        </PaginationItem>
+                        <PaginationItem>
+                            <PaginationLink
+                                href="#"
+                                className="px-3 py-1 text-blue-600 bg-blue-100 rounded-md hover:bg-blue-200 transition"
+                            >
+                                1
+                            </PaginationLink>
+                        </PaginationItem>
+                        <PaginationItem>
+                            <PaginationEllipsis className="text-gray-500" />
+                        </PaginationItem>
+                        <PaginationItem>
+                            <PaginationNext
+                                href="#"
+                                className="px-3 py-1 text-gray-700 bg-gray-200 rounded-md hover:bg-gray-300 transition"
+                            />
+                        </PaginationItem>
+                    </PaginationContent>
+                </Pagination>
+            </div>
+
 
         </div>
 
