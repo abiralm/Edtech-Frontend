@@ -29,17 +29,17 @@ import { Input } from "@/components/ui/input"
 import { MdMailOutline } from "react-icons/md";
 import { FaLock } from "react-icons/fa";
 import { LoginSchema } from "@/schema"
-import useAuthStore from "@/stores/authStore"
+// import useAuthStore from "@/stores/authStore"
 import { loginReqDataType, loginResDataType } from "@/types/auth_types"
 
 import { useRouter } from 'next/navigation'
-
+import { useSession, signIn, signOut } from "next-auth/react"
 
 const SignIn = () => {
 
     const router = useRouter()
 
-    const {login} = useAuthStore()
+    // const {login} = useAuthStore()
 
     const form = useForm<z.infer<typeof LoginSchema>>({
         resolver: zodResolver(LoginSchema),
@@ -48,18 +48,44 @@ const SignIn = () => {
         password:""
         },
     })
-    
+
+    // async function onSubmit(values: z.infer<typeof LoginSchema>) {
+    //     const loginData : loginReqDataType = {
+    //         email:values.email,
+    //         password:values.password
+    //     }
+    //     const loggedIn = await login(loginData)
+    //     //if logged in is true route to create course
+    //     loggedIn? router.push("/createcourse"):console.log(values)
+
+
+    // }
+
     async function onSubmit(values: z.infer<typeof LoginSchema>) {
-        const loginData : loginReqDataType = {
-            email:values.email,
-            password:values.password
+        try {
+            console.log({
+                "email": values.email, 
+                "password": values.password
+            })
+            const result = await signIn("credentials", {
+                email: values.email,
+                password: values.password,
+                redirect: false,
+            });
+
+            console.log(result)
+
+            if (result?.error) {
+                console.error("Authentication error:", result.error);
+            } else if (result?.ok) {
+                router.push("/createcourse");
+                router.refresh();
+            }
+        } catch (error) {
+            console.error("Sign in error:", error);
         }
-        const loggedIn = await login(loginData)
-        //if logged in is true route to create course
-        loggedIn? router.push("/createcourse"):console.log(values)
-        
-        
     }
+
 
     return (
     <div className="flex items-center  justify-center m-6">
@@ -100,7 +126,7 @@ const SignIn = () => {
                                     <FormControl>
                                     <div className="relative">
                                         <FaLock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4.5 h-4.5" />
-                                        <Input type="password" placeholder="Enter your email" {...field} className="pl-10" />
+                                        <Input type="password" placeholder="Enter your password" {...field} className="pl-10" />
                                     </div>
                                     </FormControl>
                                     <FormMessage />
@@ -124,10 +150,30 @@ const SignIn = () => {
             </CardFooter>
         </Card>
     </div>
-        
+
     )
 };
 
 export default SignIn;
 
 
+
+// import { useSession, signIn, signOut } from "next-auth/react"
+
+// export default function Component() {
+//     const { data: session } = useSession()
+//     if (session) {
+//         return (
+//             <>
+//                 Signed in as {session.user.email} <br />
+//                 <button onClick={() => signOut()}>Sign out</button>
+//             </>
+//         )
+//     }
+//     return (
+//         <>
+//             Not signed in <br />
+//             <button onClick={() => signIn()}>Sign in</button>
+//         </>
+//     )
+// }

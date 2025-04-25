@@ -2,6 +2,7 @@ import Navbar from "./component/layout/navbar"
 import { Footer } from "./component/layout/footer"
 import {Inter} from "next/font/google"
 import "./globals.css";
+import AuthProvider from "./context/AuthProvider";
 
 export const metadata = {
   title: 'EdTech Next',
@@ -21,9 +22,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className}`}>
+        <AuthProvider>
         {/* <Navbar/> */}
         {children}
         {/* <Footer/> */}
+        </AuthProvider>
       </body>
     </html>
   )
