@@ -5,12 +5,11 @@ import {
     CardHeader,
 } from "@/components/ui/card"
 
-import CourseItems from "./courseItems"
+// import CourseItems from "./courseItems"
 import AddNewContent from "./addNewContent"
 import ChapterTitle from "./chapterTitle";
 import { ChapterSchema } from "@/schema";
 import { z } from "zod";
-import { useState } from "react";
 import { ChapterType, LessonType } from "@/types";
 import LessonList from "./lessonList";
 

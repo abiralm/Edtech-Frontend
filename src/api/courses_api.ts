@@ -16,3 +16,5 @@ export const get_course_list_api = async ():Promise<CourseGetResType[] |null>=>{
         return null
     }
 }
+
+
