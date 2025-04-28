@@ -157,7 +157,7 @@ const Basic = ({ handleBack, handleForward, step, addCourseInState }: BasicProps
                                                 <SelectContent className="w-full">
                                                     <SelectItem value="Beginner">Beginner</SelectItem>
                                                     <SelectItem value="Intermediate">Intermediate</SelectItem>
-                                                    <SelectItem value="Advanced">Advanced</SelectItem>
+                                                    <SelectItem value="Advance">Advance</SelectItem>
                                                 </SelectContent>
                                             </Select>
                                             <FormMessage />
